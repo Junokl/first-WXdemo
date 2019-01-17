@@ -1,0 +1,32 @@
+<!--seckill_list.wxml-->
+<view class="kill-time">
+    <block wx:for="{{killtime}}" wx:key="index">
+        <view  data-index="{{index}}" bindtap="changeTimeAc">
+            <view class="{{index==timeac?'size-40':'size-34'}} kill-item">{{item.font}}</view>
+            <view class="size-20" wx:if="{{index==0}}">秒杀中</view>
+            <view class="size-20" wx:else>即将开始</view>
+        </view>
+    </block>
+</view>
+<view class="app-product-list" style="margin-top:120rpx;">
+    <block wx:for="{{goodlist}}" wx:key="index">
+        <view class="app-product-item">
+            <navigator class="app-product-pic mr-30" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                <image class="default-pic" src="{{item.goods_thumb}}"></image>
+            </navigator>
+            <view class="app-product-info" >
+                <view class="app-product-title ellipsis-2" style="magin-bottom: 30rpx; height: 72rpx;">{{item.goods_name}}</view>
+                <view class="app-product-price flex-between">
+                    <view class="size-22 c-999">¥{{item.shop_price}}</view>
+                    <view class="size-22 c-999">秒杀价 <text class="c-theme-1">¥</text><text class="size-26 c-theme-1">{{item.price}}</text></view>
+                    <navigator url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}&item_id={{item.item_id}}" wx:if="{{timeac == 0 && item.percent != 100}}" class="app-product-sharebtn size-22 c-fff bg-theme-1">赶紧抢购</navigator>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
+<view class="new-no-data" style="margin-top:120rpx;" wx:if="{{!goodlist || goodlist.length == 0}}">
+    <image src="../../../images/no_cart.png" class="cart-image"/>
+    <view class="new-no-message size-28 c-999 mb-30 mt-30">暂时还没相关的商品哦</view>
+    <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+</view>

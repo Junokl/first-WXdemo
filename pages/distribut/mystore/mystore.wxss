@@ -1,0 +1,104 @@
+/* my_store.wxss */
+.store-img{
+    width: 100%;
+    height: 300rpx;
+    z-index: 1;
+}
+.store-share{
+    width: 60rpx;
+    height: 60rpx;
+    float: right;
+    margin-right: 20rpx;
+    margin-top: -280rpx;
+    z-index: 2;
+    position: relative;
+}
+.store-head{
+    width: 150rpx;
+    height: 150rpx;
+    border-radius: 50%;
+    margin-left: 20rpx;
+    float: left;
+}
+.store-name{
+    color: gainsboro;
+    margin-left: 10rpx;
+    margin-top: 10rpx;
+    float: left;
+    font-size: 35rpx;
+}
+.store-top{
+    width: 100%;
+    height: 100rpx;
+    border-bottom: 10rpx solid #e2e3e8;
+    padding: 10px 0;
+    position: relative;
+    background-color: #fff;
+}
+.store-tit{
+    width: 40%;
+    height: 150rpx;
+    float: left;
+    position: absolute;
+    left: 0;
+    top: -75rpx;
+}
+.store-title{
+    width: 30%;
+    height: 100rpx;
+    float: right;
+}
+.store-num{
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+.store-status{
+    font-size: 35rpx;
+    color: #666;
+    text-align: center;
+}
+.st-title{
+    width: 100%;
+    height: 50rpx;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+}
+.store-type-img{
+    width: 45rpx;
+    height: 45rpx;
+    float: left;
+    margin-left: 20rpx;
+}
+.st-txt{
+    font-size: 35rpx;
+    margin-left: 8rpx;
+    float: left;
+}
+.good-img{
+    width: 155px;
+    height: 155px;
+    margin-top: 5px;
+}
+.st_li{
+    overflow: hidden;
+    background-color: #e2e3e8;
+    text-align: center;
+}
+.st_goods{
+    width: 374rpx;
+    height: 480rpx;
+    float: left;
+    background-color: #fff;
+    margin-bottom: 2px;
+}
+.st_li .st_goods:nth-child(even){ float: right;}
+.ellipsis-2{
+    font-size: 27rpx;
+    color: #333;
+} 
+.st_font{
+    font-size: 30rpx;
+    color:red;
+    margin-top: 10rpx;
+}

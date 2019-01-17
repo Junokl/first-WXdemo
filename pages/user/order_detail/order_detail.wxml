@@ -1,0 +1,149 @@
+<!--order_detail.wxml-->
+<view class="container">
+    <view class="new-cart2-address bg-fff mb-20"  hidden="{{!optionIsGoup || order.pay_status!=0}}" >
+        <view class="new-cart2-address-box flex-between pt-20 pb-20 p30">
+            <view class="flex-auto">
+                <view class="new-cart2-address-title size-30 mb-20">
+                    <view class="new-cart2-address-name">{{order.consignee}}</view>
+                    <view class="new-cart2-address-phone ml-30">{{order.mobile}}</view>
+                </view>
+                <view class="new-cart2-address-message" wx:if="{{order.prom_type!=5}}">
+                    <image src="../../../images/icon_location.png" />
+                    <view class="ml-20 size-26 c-999 ellipsis-1">{{order.total_address}}</view>
+                </view>
+            </view>
+            <image class="new-cart2-address-arrow" src="../../../images/icon-arrowdown.png"></image>
+        </view>
+        <image class="new-cart2-address-line" src="../../../images/tt.png"></image>
+    </view>
+
+    <view class="order-meg">
+        <view class="store-list bg-fff">
+            <view class="app-store-box p30">
+                <view class="app-store-title">
+                    <image src="../../../images/carnew.png"></image>
+                    <view class="size-26 c-999 ml-20">{{order.store.store_name}}</view>
+                    <view class="size-26 c-theme-1 flex-auto" style="text-align: right;">{{order.order_status_detail}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="app-product-list">
+            <view class="app-product-item" wx:for="{{order.order_goods}}" wx:key="{{index}}">
+                <view class="app-product-pic mr-30"  url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <image class="wh100 default-pic" src="{{url}}/api/goods/goodsThumImages?goods_id={{item.goods_id}}&width=200&height=200"></image>
+                    <!-- <image class="wh100 default-pic" src="{{item.goods_thumb}}"></image> -->
+                </view>
+                <navigator class="app-product-info" open-type="redirect" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{good.goods_id}}">
+                    <view class="app-product-title ellipsis-1 c-333" style="font-size:26rpx;">{{item.goods_name}}</view>
+                    <view class="app-product-spec ellipsis-1 size-20 c-999">{{item.spec_key_name}}</view>
+                    <view class="app-product-price flex-between">
+                        <view class="size-24 c-theme-1">¥<text class="size-36">{{item.member_goods_price}}</text></view>
+                        <view class="size-24 c-333">x{{item.goods_num}}</view>
+                    </view>
+                </navigator>
+            </view>
+        </view>
+        <view class="app-order-operate">
+            <view wx:if="{{optionIsGoup}}" class="app-order-button size-24 c-999 bg-fff" bindtap='checkTeam'>拼团详情</view>
+
+            <button wx:if="{{imChoose==1}}" open-type="contact" class='app-order-button active size-24 c-fff bg-theme-1'  session-from="wechat|{{userInfo.user_id}}|{{userInfo.nickname}}|{{userInfo.head_pic}}|{{order.store.store_id}}">
+                联系客服
+            </button>
+            <view wx:elif="{{imChoose==0}}"  class='app-order-button active size-24 c-fff bg-theme-1' bindtap='contactService'>
+                联系客服
+            </view>
+            <view wx:else  class='size-24 active c-fff bg-theme-1'>联系客服</view>
+
+            <view class="app-order-button size-24 size-24 c-999 bg-fff" hidden="{{!(order.order_button.cancel_btn==1&&order.pay_status==0)}}" bindtap="cancelOrder" data-id='{{order.order_id}}'>取消订单</view>
+            <navigator hidden="{{!(order.order_button.cancel_btn==1&&order.pay_status==1)}}" class="app-order-button size-24 size-24 c-999 bg-fff" url="/pages/order/refund_order/refund_order?consignee={{order.consignee}}&mobile={{order.mobile}}&orderId={{order.order_id}}">取消订单</navigator>
+        </view>
+    </view>
+    <view class="new-orderpay-message pt-20 pb-20 p30 mb-20 bg-fff" >
+        <view class="new-orderpay-header size-36 c-333 bold pb-20">基本信息</view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">订单编号</view>
+            <view class="new-orderpay-count c-theme-1">{{order.order_sn}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">下单时间</view>
+            <view class="new-orderpay-count c-theme-1">{{order.addTimeFormat}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{!optionIsGoup && order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">收货地址</view>
+            <view class="new-orderpay-count c-theme-1">{{order.total_address}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{!optionIsGoup && order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">收货人</view>
+            <view class="new-orderpay-count c-theme-1">{{order.consignee}}{{'　　'}}{{order.mobile}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type==5}}">
+            <view class="new-orderpay-title c-999">接收手机</view>
+            <view class="new-orderpay-count c-theme-1">{{order.mobile}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">支付方式</view>
+            <view class="new-orderpay-count c-theme-1">{{order.pay_name || '无'}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">配送方式</view>
+            <view class="new-orderpay-count c-theme-1">{{order.shipping_name || '无'}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">买家留言</view>
+            <view class="new-orderpay-count c-theme-1">{{user.user_note || '无'}}</view>
+        </view>
+        <block wx:for="{{order.vrorder}}"  wx:key="{{index}}">
+            <view class="new-orderpay-item mb-20 flex-between size-26">
+                <view class="new-orderpay-title c-999">电子兑换码</view>
+                <view class="new-orderpay-count c-theme-1">{{item.vr_code}}</view>
+            </view>
+            <view class="new-orderpay-item mb-20 flex-between size-26">
+                <view class="new-orderpay-title c-999">兑换码状态</view>
+                <view wx:if="{{item.vr_state==1}}" class="new-orderpay-count c-theme-1">已使用，使用时间{{item.vrUsertimeFormat}}</view>
+                <view wx:elif="{{item.vr_state==2}}" class="new-orderpay-count c-theme-1">已过期，有效期至{{item.vrIndateFormat}}</view>
+                <view wx:elif="{{item.vr_state==0&&item.refund_lock<1}}"class="new-orderpay-count c-theme-1">未使用，有效期至{{item.vrIndateFormat}}</view>  
+                <view wx:elif="{{item.refund_lock>0}}" class="new-orderpay-count c-theme-1">已取消，有效期至{{item.vrIndateFormat}}</view> 
+            </view>
+        </block>
+    </view>
+
+    <view class="new-orderpay-message pt-20 pb-20 p30 bg-fff" style="margin-bottom: 120rpx;">
+        <view class="new-orderpay-header size-36 c-333 bold pb-20">价格信息</view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">商品总价</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{order.goods_price}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">运费</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{order.shipping_price}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">优惠券</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{order.coupon_price || '0.00'}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">积分</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{order.integral_money}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">余额</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{order.user_money}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26" wx:if="{{order.order_prom_type!=5}}">
+            <view class="new-orderpay-title c-999">活动优惠</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{order.order_prom_amount}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">实付金额</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{order.order_amount}}</view>
+        </view>
+    </view>
+
+    <view class="app-footer-button h-100 flex-center bg-fff">
+        <view class="flex-auto p30 size-24 c-theme-1" hidden="{{order.order_button.pay_btn}}">{{order.order_status_detail}}</view>
+        <view class="flex-auto p30 size-24 c-theme-1" hidden="{{!order.order_button.pay_btn}}"></view>
+        <view bindtap="jumpToCart4" hidden="{{!order.order_button.pay_btn}}" class="c-fff size-34 bg-theme-1 app-footer-submit submit-more h-100">立即付款</view>
+        <view bindtap="confirmOrder" hidden="{{!order.order_button.receive_btn}}" class="c-fff size-34 bg-theme-1 app-footer-submit submit-more h-100">确认收货</view>
+        <navigator url="/pages/user/express/express?order_id={{order.order_id}}" hidden="{{!order.order_button.shipping_btn}}" class="c-fff size-34 bg-theme-1 app-footer-submit submit-more h-100" >查看物流</navigator>
+    </view>
+</view>

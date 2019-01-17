@@ -1,0 +1,232 @@
+<!--cart2.wxml-->
+<form bindsubmit="submitForm">
+<view class="container {{(isInvoiceShow || isGoodShow) ? 'noscroll' : ''}}">
+    <view class="new-cart2-address bg-fff mb-20"  hidden="{{!order.addressList}}" bindtap="enterAddressPage">
+        <view class="new-cart2-address-box flex-between pt-20 pb-20 p30">
+            <view class="flex-auto">
+                <view class="new-cart2-address-title size-30 mb-20">
+                    <view class="new-cart2-address-name">{{order.addressList.consignee}}</view>
+                    <view class="new-cart2-address-phone ml-30">{{order.addressList.mobile}}</view>
+                </view>
+                <view class="new-cart2-address-message">
+                    <image src="../../../images/icon_location.png" />
+                    <view class="ml-20 size-26 c-999 ellipsis-1">{{order.addressList.total_address}}</view>
+                </view>
+            </view>
+            <image class="new-cart2-address-arrow" src="../../../images/icon-arrowdown.png"></image>
+        </view>
+        <image class="new-cart2-address-line" src="../../../images/tt.png"></image>
+    </view>
+    <!-- 商品列表 -->
+    <view class="order-meg">
+        <view class="store-list" wx:for="{{order.storeShippingCartList}}" wx:key="{{index}}">
+            <view class="app-store-box p30">
+                <view class="app-store-title">
+                    <image src="../../../images/carnew.png"></image>
+                    <view class="size-26 c-999 ml-20">{{item.store_name}}</view>
+                </view>
+            </view>
+            <view class="app-product-list" >
+                <block wx:if="{{item.cartList.length<4}}">
+                    <view class="app-product-item" wx:for="{{item.cartList}}" wx:for-item="good" wx:key="{{goodIndex}}" wx:for-index="goodIndex">
+                        <view class="app-product-pic mr-30"  url="/pages/goods/goodsInfo/goodsInfo?goods_id={{good.goods_id}}">
+                            <image class="default-pic" src="{{good.goods_thumb || good.goods.original_img}}"></image>
+                        </view>
+                        <view class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{good.goods_id}}">
+                            <view class="app-product-title ellipsis-1 c-333" style="font-size:26rpx;">{{good.goods_name}}</view>
+                            <view class="app-product-spec ellipsis-1 size-20 c-999">{{good.spec_key_name}}</view>
+                            <view class="app-product-price flex-between">
+                                <view class="size-24 c-theme-1">¥<text class="size-36">{{good.member_goods_price}}</text></view>
+                                <view class="size-24 c-333">x{{good.goods_num}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+                <block wx:else>
+                    <view class="app-product-itemss pt-30 pb-30" data-store="{{index}}" bindtap="openGoodsModal">
+                        <block wx:for="{{item.cartList}}" wx:for-item="good" wx:for-index="goodIndex" wx:key="{{goodIndex}}">
+                            <view class="app-product-items mr-30" data-index="{{goodIndex}}" wx:if="{{goodIndex<3}}">
+                                <image src="{{good.goods_thumb || good.goods.original_img}}" class="default-pic radius"/>
+                            </view>
+                        </block>
+                        <view class="app-product-number size-26 c-333">共 {{item.cartList.length}} 件</view>
+                        <image class="app-product-arrow" src="../../../images/icon-arrowdown.png"></image>
+                    </view>
+                </block>
+            </view>
+            <view class="common-list">
+                <view class="common-item bt-1" bindtap="useCoupon" data-idx='{{index}}'>
+                    <view class="common-item-title">优惠券</view>
+                    <!-- {{item.useCouponListId?item.useCouponName:'未使用'}} -->
+                    <view class="common-item-mess size-26 c-theme-1">{{order.couponNum[item.store_id] ? order.couponNum[item.store_id] : 0}}张可用</view>
+                    <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+                </view>
+                <view class="common-item">
+                    <view class="common-item-title">运费：</view>
+                    <view class="common-item-mess size-26 c-theme-1">{{orderPrices.store_list_pay_info[item.store_id].shipping_price > 0 ? '¥'+ orderPrices.store_list_pay_info[item.store_id].shipping_price : '包邮'}}</view>
+                </view>
+                <view class="common-item flex-between" style="border: none">
+                    <view class="common-item-title">备注：</view>
+                    <textarea hidden="{{isInvoiceShow || isGoodShow}}" name="user_note{{item.store_id}}" style="height: 30rpx; text-align: right; width: 100%;" class="size-26 c-333 flex-auto ml-20" maxlength="30" placeholder="请输入需要备注的内容" bindinput="keyUpChangeNum"/>
+                </view>
+            </view>
+        </view>
+        <view class="common-list mb-20 bg-fff">
+            <view class="common-item" style="border: none" bindtap="openInvoiceModal">
+                <view class="common-item-title">发票</view>
+                <!-- {{item.useCouponListId?item.useCouponName:'未使用'}} -->
+                <view class="common-item-mess size-26 c-theme-1" wx:if="{{!invoice.is_use}}">不开发票</view>
+                <view class="common-item-mess size-26 c-theme-1" wx:else>商品明细({{invoice.is_person? "个人": "单位"}})</view>
+                <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+            </view>
+        </view>
+    </view>
+    <!-- 使用其他支付 -->
+    <!-- <view class="set-mes">
+        <view wx:if="{{order.store_prom}}">
+            <icon type="info" size="16" color="#ff4f70"/>{{order.store_prom}}
+        </view>
+        <view class="use-item">
+            <view>使用余额 : </view>
+            <input type="digit" name="user_money" maxlength="20" placeholder="可用余额:{{order.userInfo.user_money}}" bindblur="keyUpChangePay1"/>
+            <button class="use-btn" form-type="submit">使用</button>
+        </view>
+        <view class="use-item">
+            <view>使用积分 : </view>
+            <input type="number" name="pay_points" maxlength="20" placeholder="可用积分为:{{order.userInfo.pay_points}}" bindblur="keyUpChangePay2"/>
+            <button class="use-btn" form-type="submit">使用</button>
+        </view>
+        <view class="use-item">
+            <view>使用券码 : </view>
+            <input type="text" placeholder="请输入优惠券券码" bindinput='inputCouponCode'/>
+            <button class="use-btn" bindtap='addCouponCode'>使用</button>
+        </view>
+        <view class="use-item" style="display:{{payWithUserMoney&&payWithPoints?'none':'flex'}}">
+            <view>支付密码 : </view>
+            <input type="text" name="paypwd" password placeholder="请输入密码" maxlength="20"/>
+        </view>
+    </view> -->
+    <!-- 发票 -->
+    <!-- <view class="set-mes invoice-wrap" style="margin-top: 0">
+        <view class="invoice set-item">
+            <view>发票信息</view>   
+            <view class="set-btn">
+                <switch type="switch" color="#EC5151" bindchange="setInvoice"/>
+            </view>
+        </view>
+        <view class="invoice-remarks" wx:if="{{invoice.is_use}}">
+             <radio-group class="radio-group" bindchange="isPersonChange">
+                <radio color="#EC5151" value="person" checked="{{invoice.is_person}}"/>个人
+                <radio color="#EC5151" value="company" checked="{{!invoice.is_person}}"/>单位
+            </radio-group> 
+        </view>
+        <view class="invoice-remarks" wx:if="{{invoice.is_use&&!invoice.is_person}}">
+            <view>发票抬头： </view> <input type="text" name="invoice_title" placeholder="公司名称"/>
+        </view>
+        <view class="invoice-remarks" wx:if="{{invoice.is_use&&!invoice.is_person}}">
+            <view>纳税人识别号： </view> <input type="text" name="taxpayer"/>
+        </view>
+        <view class="set-item" wx:if="{{invoice.is_use}}">
+            <picker bindchange="selectInvoiceContent" value="{{invoice.content_idx}}" range="{{invoice.contents}}"> 
+                <view>发票内容： {{invoice.contents[invoice.content_idx]}}</view>
+            </picker> 
+            <view class="set-btn">
+                <image class="arrow-rigth" src="../../../images/icon-arrowdown.png"></image>
+            </view>
+        </view>
+    </view> -->
+    <view class="new-orderpay-message pt-20 pb-20 p30 bg-fff" style="margin-bottom: 120rpx;">
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">商品金额</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{order.storeCartTotalPrice}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">优惠劵减免</view>
+            <view class="new-orderpay-count c-theme-1">-¥ {{orderPrices.coupon_price}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">配送费用</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{orderPrices.shipping_price}}</view>
+        </view>
+        <!-- <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">使用积分</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{orderPrices.integral_money}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">使用余额</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{orderPrices.user_money}}</view>
+        </view> -->
+        <view class="new-orderpay-item flex-between size-26">
+            <view class="new-orderpay-title c-999">优惠活动</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{orderPrices.order_prom_amount}}</view>
+        </view>
+    </view>
+</view>
+<view class="app-footer-button h-100 flex-center bg-fff">
+    <view class="flex-auto p30 size-24 c-theme-1">¥ <text class="size-44">{{orderPrices.order_amount}}</text></view>
+    <button form-type="submit" class="c-fff size-34 bg-theme-1 app-footer-submit h-100" id='submitOrder'>提交订单</button>
+</view>
+<!-- 发票 -->
+<view class="new-invoice-wapper new-payorder-wapper" hidden="{{!isInvoiceShow}}">
+    <view class="wx-mask" style="z-index: 1005;" catchtap="closeInvoiceModal"></view>
+    <view class="wx-mask-box">
+        <view class="new-cart2-box pt-30 p30 bg-fff">
+            <view class="new-cart2-header flex-between">
+                <view class="size-36 bold c-333">发票</view>
+                <view class="size-26 c-333">共 4 件</view>
+            </view>
+            <view class="new-cart2-body">
+                <view class="new-cart2-body-title pt-30 size-26 c-999 mb-30" style="padding-top: 60rpx;">发票内容</view>
+                <view class="new-cart2-body-list">
+                    <view class="new-cart2-body-item size-26 mr-30 mb-30 {{!invoice.is_use? 'active': ''}}" bindtap="choseInvoice" data-isneed="0">不开发票</view>
+                    <view class="new-cart2-body-item size-26 mr-30 mb-30  {{invoice.is_use? 'active': ''}}" bindtap="choseInvoice" data-isneed="1">商品明细</view>
+                </view>
+                <block wx:if="{{invoice.is_use}}">
+                    <view class="new-cart2-body-title pt-30 size-26 c-999 mb-30">发票抬头</view>
+                    <view class="new-cart2-body-list mb-30">
+                        <view class="new-cart2-body-item size-26 mr-30 mb-30 {{invoice.is_person? 'active': ''}}" bindtap="chosePerson" data-isper="1">个人</view>
+                        <view class="new-cart2-body-item size-26 mr-30 mb-30 {{!invoice.is_person? 'active': ''}}" bindtap="chosePerson" data-isper="0">单位</view>
+                    </view>
+                </block>
+                <block wx:if="{{invoice.is_use&&!invoice.is_person}}">
+                    <view class="new-cart2-body-title pt-30 size-26 c-999 mb-30" >发票抬头</view>
+                    <input type="text" name="invoice_title" class="new-cart2-body-input size-26 mb-30 radius" placeholder="请填写单位名称"/>
+                    <input type="text" name="taxpayer" class="new-cart2-body-input size-26 mb-30 radius" placeholder="请填写单位纳税人识别号"/>
+                </block>
+            </view>
+        </view>
+        <view class="h-100 size-30 bg-theme-1 flex-center c-fff" bindtap="closeInvoiceModal">确定</view>
+    </view>
+</view>
+<!-- 优惠券 -->
+
+<!-- 商品清单 -->
+<view class="new-invoice-wapper new-payorder-wapper" hidden="{{!isGoodShow}}">
+    <view class="wx-mask" style="z-index: 1005;" catchtap="closeGoodsModal"></view>
+    <view class="wx-mask-box">
+        <view class="new-cart2-box pt-30 p30 bg-fff">
+            <view class="new-cart2-header flex-between">
+                <view class="size-36 bold c-333">商品清单</view>
+                <view class="size-26 c-333">共 {{selectGoodsList.length}} 件</view>
+            </view>
+            <view class="new-cart2-body" style="height: 920rpx;">
+                <view  class="app-product-list" style="padding: 0">
+                    <view class="app-product-item" wx:for="{{selectGoodsList}}" wx:key="{{goodIndex}}" wx:for-item="good" wx:for-index="goodIndex">
+                        <view class="app-product-pic mr-30" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{good.goods_id}}">
+                            <image class="default-pic" src="{{good.goods_thumb || good.goods.original_img}}"></image>
+                        </view>
+                        <view class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{good.goods_id}}">
+                            <view class="app-product-title ellipsis-1 c-333" style="font-size:26rpx;">{{good.goods_name}}</view>
+                            <view class="app-product-spec ellipsis-1 size-20 c-999">{{good.spec_key_name}}</view>
+                            <view class="app-product-price flex-between">
+                                <view class="size-24 c-theme-1">¥<text class="size-36">{{good.member_goods_price}}</text></view>
+                                <view class="size-24 c-333">x{{good.goods_num}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+</form>

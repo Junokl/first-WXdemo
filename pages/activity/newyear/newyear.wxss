@@ -1,0 +1,81 @@
+page {
+  background-color: #CF090B;
+}
+.c-theme-5 {
+  color: #CF090B;
+}
+.c-theme-6 {
+  color: #FEF07F;
+}
+.bg-theme-5 {
+  background-color: #CF090B;
+}
+.bg-theme-6 {
+  background-color: #FEF07F;
+}
+.bg-theme-7 {
+  background-color: #E30A0C;
+}
+.newyear-header-pic {
+  width: 750rpx;
+  height: 291rpx;
+  display: block;
+}
+.newyear-good-list {
+  padding-top: 100rpx;
+  padding-bottom: 50rpx;
+} 
+.newyear-good-item {
+  width: 560rpx;
+  padding-top: 80rpx;
+  margin: 0 auto 100rpx;
+  background: url("https://img.gzzhitu.com/picture/20190113/15473726867312.png") no-repeat top center;
+  background-size: 100%;
+}
+.newyear-good-box {
+  width: 461rpx;
+  margin: 0 auto;
+}
+.newyear-good-pic {
+  width: 461rpx;
+  height: 461rpx;
+  flex-direction: column;
+}
+.newyear-good-name {
+  width: 336rpx;
+  text-align: center;
+  line-height: 38rpx;
+}
+.newyear-good-pic image {
+  width: 336rpx;
+  height: 336rpx;
+}
+.newyear-good-info {
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 0 10rpx;
+  width: 100%;
+  background: url("https://img.gzzhitu.com/picture/20190113/154737268958549.png") no-repeat top center;
+  background-size: 100%;
+}
+.newyear-good-right {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 50rpx;
+}
+.newyear-good-pirce {
+  padding: 8rpx 10rpx;
+}
+.newyear-good-pirce .size-30 {
+  height: 34rpx;
+}
+.newyear-good-now {
+  width: 42rpx;
+  height: 42rpx;
+  padding: 4rpx 7rpx;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  line-height: 21rpx;
+}

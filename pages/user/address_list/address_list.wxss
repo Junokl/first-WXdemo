@@ -1,0 +1,101 @@
+/* address_list.wxss */
+page{
+    margin-bottom: 200rpx;
+}
+.address-box{
+    background-color: white;
+    padding: 25rpx 0 25rpx 25rpx;
+    font-size: 28rpx;
+    border-bottom: 3rpx #f8f8f8 solid;
+}
+.address-user{
+    box-sizing: border-box;
+    float: left;
+    width:150rpx;
+}
+.user-name{
+    font-size: 30rpx;
+    padding-bottom: 20rpx;
+    word-break:keep-all;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+}
+.default{
+    color: white;
+    background-color: red;
+    padding: 4rpx;
+    width:fit-content;
+    border-radius:6rpx;
+}
+.address-info{
+    box-sizing: border-box;
+    float: left;
+    width: 480rpx;
+    padding-left: 10rpx;
+}
+.mobile{
+    padding-bottom: 25rpx;
+}
+.address{
+    height: 70rpx;
+    overflow: hidden;
+}
+.address-edit{
+    box-sizing: border-box;
+    width:95rpx;
+    float: left;
+    text-align: center;
+    padding-top: 32rpx;
+}
+.address-edit>image{
+    width: 36rpx;
+    height: 42rpx;
+}
+.address-create-left{
+    width: 230rpx;
+    text-align: center;
+    line-height: 80rpx;
+    border-radius: 40rpx;
+    font-size: 28rpx;
+    border: 1rpx solid #7AC666;
+    overflow: hidden;
+    color: #7AC666;
+    background-color: #fff;
+}
+.address-create-right{
+    width: 230rpx;
+    text-align: center;
+    overflow: hidden;
+    font-size: 28rpx;
+    color: #fff;
+    border: 1rpx solid #ff4f70;
+    background-color: #ff4f70;
+    line-height: 80rpx;
+    border-radius: 40rpx;
+}
+.cart-image{
+  width:171rpx !important;
+  height:207rpx !important;
+}
+.new-no-button-box{
+  width:380rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.address-create-box{
+  width:100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 80rpx;
+  left: 0rpx;
+}
+.new-no-button{
+  width:160rpx !important ;
+  height:60rpx !important;
+  line-height:60rpx !important;
+  border-radius: 26rpx !important;
+}

@@ -1,0 +1,77 @@
+<form bindsubmit="formSubmit">
+<view class="container user-container">
+    <view wx:if="{{type == 'nickname'}}" class="label-input item">
+        <text class="label" style="padding-left: 20rpx;">昵称</text>
+        <input class="input" placeholder="请输入您的昵称" value="{{user.nickname}}" name="nickname" auto-focus/>
+    </view>
+
+    <block wx:if="{{type == 'mobile'}}">
+        <view class="label-input item">
+            <text class="label" style="padding-left: 20rpx;">手机号</text>
+            <input class="input" placeholder="请输入您的手机号" value="{{user.mobile}}" name="mobile" data-name="mobile" type="number" bindinput="setMobile" />
+        </view>
+        <view class="verify-box item">
+            <input class="verify-input" placeholder="请输入验证码" name="mobile_code" auto-focus/>
+            <button class="verify-btn {{canGetCode?'btn-disable':''}}" bindtap="getCode">获取短信验证码</button>
+        </view>
+    </block>
+
+    <view wx:if="{{type == 'email'}}" class="label-input item">
+        <text class="label" style="padding-left: 20rpx;">邮箱</text>
+        <input class="input" placeholder="请输入您的邮箱" value="{{user.email}}" name="email" auto-focus/>
+    </view>
+
+    <block wx:if="{{type == 'password'}}">
+        <!-- <view class="label-input simple" wx:if="{{user.password}}">
+            <text class="label">旧密码</text>
+            <input class="input" placeholder="旧密码" name="old_password" password auto-focus/>
+        </view> -->
+        <view class="label-input simple">
+            <text class="label">输入新密码</text>  
+            <input class="input" placeholder="请输入您的密码" name="new_password" bindinput="setNewPass" value='{{newPass_value}}' password/>
+            <view wx:if="{{label_img}}">
+              <image class='label-img' src='../../../images/dg.png'></image>
+            </view>
+        </view>
+        <view class="label-input simple item-newpass">
+            <text class="label">确认新密码</text>
+            <input class="input" placeholder="再次确认您的密码" bindinput="setNewPass_comfi" value='{{confirm_newPass_value}}' name="confirm_password" password/>
+            <view wx:if="{{label_img}}">
+              <image class='label-img' src='../../../images/dg.png'></image>
+            </view>
+        </view>
+          <view class='label-text size-24 c-999 p-30'>必须是6-20个英文字母、数字或符号（除空格），且字母、数字和标点符号至少包含两种</view>
+    </block>
+
+    <block wx:if="{{type == 'paypwd'}}">
+        <view class="label-input simple item">
+            <text class="label">手机号</text>
+            <input class="input" placeholder="请输入您的手机号" value="{{user.mobile}}" name="paypwd_mobile" bindinput="setMobile" auto-focus/>
+        </view>
+        <view class="verify-box item">
+            <input class="verify-input" placeholder="请输入验证码" name="paypwd_code"/>
+            <button class="verify-btn {{canGetCode?'btn-disable':''}}" bindtap="getCode">获取短信验证码</button>
+        </view>
+        <view class="label-input simple">
+            <text class="label">新密码</text>
+            <input class="input" placeholder="请输入您的密码" name="paypwd" password/>
+        </view>
+        <view class="label-input simple item">
+            <text class="label">确认密码</text>
+            <input class="input" placeholder="再次确认您的密码" name="paypwd_confirm" password/>
+        </view>
+    </block>
+
+    <view wx:if="{{type == 'sex'}}">
+        <view class="gender-box">
+            <view style="background-image:url('https://img.gzzhitu.com/picture/20181225/15457408092569.png');" class="gender boy {{user.sex == 1 && 'boy-click'}}" bindtap="changeGender" data-gender='boy'></view>
+        </view>
+        <view class="gender-box">
+            <view style="background-image:url('https://img.gzzhitu.com/picture/20181225/15457408092569.png');" class="gender girl {{user.sex == 2 && 'girl-click'}}" bindtap="changeGender" data-gender='girl'></view>
+        </view>
+    </view>
+
+    <button wx:if="{{type != 'password'}}" class="sub submit" formType="submit">下一步</button>
+    <button wx:if="{{type == 'password'}}"  class="sub {{submit_class=='submit'?'submit':'defalut-submit'}}" formType="submit">下一步</button>
+</view>
+</form>

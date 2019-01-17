@@ -1,0 +1,90 @@
+<!--pages/user/account_details/account_details.wxml-->
+<view class="containter {{isQuestionShow ? 'noscroll' : ''}}">
+  <view class="account-wapprer">
+    <view class="account-header bg-theme-1">
+      <view class="account-header-title mb-20 size-22 c-fff">用户余额</view>
+      <view class="account-header-money c-fff">{{userInfo.user_money || '0.00'}}</view>
+      <navigator class="account-header-btn  size-28 c-fff" url="/pages/user/billing_details/billing_details">我的账单</navigator>
+    </view> 
+    <view class="account-box mb-100">
+      <view class="account-details-item mb-30 radius">
+        <view class="account-details-header mb-30 flex-between">
+          <view class="account-title size-36 c-333 bold">月份收入</view>
+          <view class="account-question size-22 c-999" data-index="0" bindtap="openQuestionModal">有疑问？</view>
+        </view>
+        <view class="account-flex flex-center">
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">上月结算</view>
+            <view class="size-44 c-theme-1 bold">{{commission_info.last_month_total}}</view>
+          </view>
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">本月预估</view>
+            <view class="size-44 c-theme-1 bold">{{commission_info.this_month_total}}</view>
+          </view>
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">上月预估</view>
+            <view class="size-44 c-theme-1 bold">{{commission_info.last_month_income}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="account-details-item mb-30 radius">
+        <view class="account-details-header mb-30 flex-between">
+          <view class="account-title size-36 c-333 bold">今日收入</view>
+          <view class="account-question size-22 c-999" data-index="1" bindtap="openQuestionModal">有疑问？</view>
+        </view>
+        <view class="account-flex flex-center">
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">结算收入</view>
+            <view class="size-40 c-theme-1 bold">{{commission_info.today_total || '0.00'}}</view>
+          </view>
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">付款笔数</view>
+            <view class="size-40 c-theme-1 bold">{{commission_info.today_pay_number || '0'}}</view>
+          </view>
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">预估佣金</view>
+            <view class="size-40 c-theme-1 bold">{{commission_info.today_income || '0.00'}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="account-details-item mb-30 radius">
+        <view class="account-details-header mb-30 flex-between">
+          <view class="account-title size-36 c-333 bold">昨日收入</view>
+          <view class="account-question size-22 c-999" data-index="2" bindtap="openQuestionModal">有疑问？</view>
+        </view>
+        <view class="account-flex flex-center">
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">结算收入</view>
+            <view class="size-40 c-theme-1 bold">{{commission_info.last_day_total || '0.00'}}</view>
+          </view>
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">付款笔数</view>
+            <view class="size-40 c-theme-1 bold">{{commission_info.last_day_pay_number || '0'}}</view>
+          </view>
+          <view class="account-flex-item flex-auto">
+            <view class="size-22 c-999 account-flex-title">预估佣金</view>
+            <view class="size-40 c-theme-1 bold">{{commission_info.last_day_income || '0.00'}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="app-account-footer flex-center">
+    <view url="/pages/user/withdrawals/withdrawals?money={{userInfo.user_money}}" bindtap="downloadApp" class="app-account-btn size-30  c-theme-1">立即提现</view>
+  </view>
+
+  <view class="new-invoice-wapper new-payorder-wapper" hidden="{{!isQuestionShow}}">
+    <view class="wx-mask" style="z-index: 1005;" catchtap="closeQuestionModal"></view>
+    <view class="wx-account-box radius">
+      <view class="account-question-header">
+        <image src="../../../images/account-question.png"></image>
+        <view class="account-question-title size-26 c-fff bold">疑问解答</view>
+      </view>
+      <view class="account-question-body bg-fff">
+        <view class="account-question-list">
+          <view class="account-question-item size-24 c-333 mb-30" style="line-height: 1.5" wx:for="{{showQuestion}}" wx:key="{{index}}">{{item}}</view>
+        </view>
+      </view>
+    </view>
+</view>
+</view>

@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="newyear-header">
+    <image class="newyear-header-pic" src="https://img.gzzhitu.com/picture/20190113/154737268331168.png"></image>
+  </view>
+  <view class="newyear-good-list bg-theme-5">
+    <block wx:for="{{recommend}}" wx:key="{{index}}">
+      <navigator url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}" class="newyear-good-item" >
+        <view class="newyear-good-box">
+          <view class="bg-fff newyear-good-pic flex-center">
+            <view class="newyear-good-name size-30 c-theme-5 ellipsis-2">{{item.goods_name}}</view>
+            <image class="default-pic" src="{{item.goods_thumb}}" />
+          </view>
+          <view class="newyear-good-info flex-between">
+            <view class="newyear-good-left">
+              <view class="through size-20 c-fff">原价¥{{item.market_price}}</view>
+              <view class="size-20 c-theme-6">活动优惠价¥<text class="size-26">{{item.shop_price}}</text></view>
+            </view>
+            <view class="newyear-good-right">
+              <view class="bg-theme-6 c-theme-5 newyear-good-pirce" style="font-size: 16rpx;">领券价¥<text class="size-30">{{item.shop_price}}</text></view>
+              <view class="bg-theme-7 size-20 c-theme-6 newyear-good-now">立即抢购</view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </block>
+    
+  </view>
+</view>

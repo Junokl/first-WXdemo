@@ -1,0 +1,220 @@
+/* comment.wxss */
+.type-navbar{
+    white-space: nowrap;
+    display: flex;
+    width: 100%;
+    height:80rpx;
+    background-color: #fff;
+}
+.type-box{
+    width:33.3333333333%;
+    box-sizing: border-box;
+    font-size: 28rpx;
+    line-height: 76rpx;
+    padding: 0 20rpx;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+}
+.type-navbar-item{
+    border-bottom: 4rpx solid #fff;
+}
+.type-item-on{
+    border-bottom: 4rpx solid #ff4f70;
+}
+.goods-container{
+    display: flex;
+    justify-content: space-between;  
+    flex-wrap:wrap;
+    box-sizing: content-box;
+    padding: 20rpx 0;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    /* background-color:#999;  */
+}
+.goods-box{
+    width: 92%;
+    background-color: #fff;
+    padding: 0 30rpx;
+    margin-bottom: 20rpx;
+    font-size: 28rpx;
+    border-radius:16rpx;
+}
+.goods-title{
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top: 10rpx;
+    height: 66rpx;
+    border-bottom: 1px solid #F5F5F5;
+}
+.store-logo{
+    height: 30rpx;
+    width: 30rpx;
+    border-radius: 25%;
+    margin-right:10rpx;
+    vertical-align:top;
+}
+.store-name{
+    color: #666;
+    font-size: 30rpx;
+    display: flex;
+    align-items: center;
+}
+.order-number{
+    font-size: 24rpx;
+    color: #666;
+    margin: 30rpx 0;
+}
+.pay-status{
+    color:#ff4f70;
+}
+.goods-cont{
+    padding-bottom: 20rpx;
+    display: flex;
+    justify-content:space-between;
+    position: relative;
+}
+.img-box{
+    flex: 0 0 180rpx;
+    width: 180rpx;
+    height: 180rpx;
+}
+.img-box image{
+    width: 180rpx;
+    height: 180rpx;
+}
+.goods-mes{
+    flex: 1;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left:15px;
+}
+.goods-name{
+    margin-bottom: 16rpx;
+    line-height: 33rpx;
+    font-size: 26rpx;
+    color: #333;
+}
+.goods-alt{
+    width: auto;
+    height: 32rpx;
+    line-height: 32rpx;
+    display: inline-block;
+    background:rgba(245,245,245,1);
+    border-radius:5px;
+    font-size:20rpx;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    padding-left: 15rpx;
+    padding-right: 15rpx;
+    color:rgba(153,153,153,1);
+    text-align: center;
+}
+
+.goods-price{
+    color: #ff4f70;
+    padding-bottom: 20rpx;
+    display: inline-block;
+}
+.goods-num{
+    display: inline-block;
+    color: #999999;
+    font-size: 26rpx;
+    padding-left: 6rpx;
+}
+.return-btn{
+    color: #999999;
+    position: absolute;
+    right: 0;
+    bottom: 0rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+}
+.goods-tips{
+    height: 60rpx;
+    padding-bottom: 20rpx;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.order-total{
+    display: flex;
+    justify-content:flex-start;
+    font-size: 24rpx;
+    color: #333;
+}
+.goods-sum{
+  width:46rpx;
+  font-size:20rpx;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(153,153,153,1);
+  line-height:33rpx;
+}
+.goods-total{
+  width:70px;
+  font-size:20px;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  line-height:33rpx;
+  margin-right:20rpx;
+  color:#FF4F7D;
+}
+.order-btn{
+    width: 130rpx;
+    height: 40rpx;
+    line-height: 40rpx;
+    text-align: center;
+    border:1px solid #eee;
+    margin-left: 20rpx;
+    float: right;
+    border-radius: 5rpx;
+    font-size:24rpx;
+}
+.request{
+  width:130rpx;
+  height:40rpx;
+  background:rgba(255,79,125,1);
+  border-radius:20rpx;
+  color:#fff;
+}
+.lookingfor,.cancel{
+  width:130rpx;
+  height:40rpx;
+  border:1px solid #EBEBEB;
+  border-radius:20rpx;
+  color:#999;
+  background-color: #EBEBEB;
+}
+.order-btn-pay{
+  width:130rpx;
+  height:40rpx;
+  background:rgba(255,79,125,1);
+  color: #fff;
+  border-color:#ff4f70;
+  border-radius:20rpx;
+}
+.comments{
+  width:130rpx;
+  height:40rpx;
+  background:rgba(255,79,125,1);
+  color: #fff;
+  border-color:#ff4f70;
+  border-radius:20rpx;
+}
+.goshow{
+  /* display: inline; */
+  width:300rpx;
+  height:76rpx;
+  background:rgba(255,79,125,1);
+  border-radius:38rpx;
+  font-size:26rpx;
+  font-family:PingFang-SC-Regular;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  line-height: 76rpx; 
+  position: relative;
+  top: 0;
+  left: 30%;
+}

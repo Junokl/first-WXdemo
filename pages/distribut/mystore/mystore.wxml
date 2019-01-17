@@ -1,0 +1,37 @@
+<!--mystore.wxml-->
+<view>
+    <image class="store-img default-banner" src="{{storeInfo.store.store_img}}"></image>
+    <view class='store-top'>
+        <view class="store-tit">
+            <image class="store-head" src="{{storeInfo.head_pic}}"></image>
+            <view class="store-name ellipsis-1">{{storeInfo.store.store_name}}</view>
+        </view>
+        <view class="store-title" bindtap='distributList'>
+            <view class="store-num">{{storeInfo.had_add_num}}</view>
+            <view class="store-status">已上架</view>
+        </view>
+        <view class="store-title" bindtap='goodList'>
+            <view class="store-num">{{storeInfo.wait_add_num}}</view>
+            <view class="store-status">待上架</view>
+        </view>
+    </view>
+    <view class='st-title'>
+        <image class="store-type-img" src="../../../images/store_type_img.png"></image>
+        <view class='st-txt'>我的产品</view>
+    </view>
+    <view class="app-product-list">
+        <block wx:for="{{teamGoods}}" wx:key="index">
+            <view class="app-product-item">
+                <navigator class="app-product-pic" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                </navigator>
+                <navigator class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <view class="app-product-title ellipsis-2">{{item.goods_name}}</view>
+                    <view class="app-product-price">
+                        <text class="app-product-prefix">¥</text>{{item.shop_price}}
+                    </view>
+                </navigator>
+            </view>
+        </block>
+    </view>
+</view>

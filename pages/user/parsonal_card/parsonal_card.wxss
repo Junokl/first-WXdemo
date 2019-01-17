@@ -1,0 +1,100 @@
+page{
+  width:100%;
+  height:100%;
+  background:#fff;
+}
+.box{
+  width:100%;
+  height:100%;
+  position: relative;
+}
+.user_box{
+  width:543rpx;
+  height:157rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx 12rpx 24rpx 0rpx rgba(0, 0, 0, 0.08);
+  border-radius:30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin:0 auto;
+  margin-top:30rpx;
+  box-sizing: border-box;
+  position: absolute;
+  left:103rpx;
+  top:0;
+  z-index: 100;
+}
+.user_logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding:24rpx;
+}
+.img-logo{
+  width:97rpx;
+  height:97rpx;
+  border-radius: 50%;
+}
+.user_name{
+  flex:1;
+  height:157rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding-top:42rpx;
+  padding-bottom:42rpx;
+}
+.user_name_text{
+  font-size: 31rpx;
+  line-height: 34rpx;
+  font-weight: 900;
+  color:#000;
+  margin-bottom:12rpx;
+}
+.user_name_num{
+  width:181rpx;
+  height:31rpx;
+  background:#FFF3F0;
+  border-radius:16rpx;
+  font-size: 21rpx;
+  color:#FF6976;
+  text-align: center;
+  line-height: 31rpx;
+
+}
+.img-qrCode{
+  width:126rpx;
+  height:126rpx;
+}
+
+.parsonal-imgBox{
+  width:100%;
+  height:100%;
+
+}
+.parsonal_img{
+  width:100%;
+  height:930rpx;
+  margin-top:200rpx;
+}
+
+.btn-share{
+  width:580rpx;
+  height:97rpx;
+  text-align: center;
+  line-height: 97rpx;
+  color:#fff;
+  box-shadow:0rpx 0rpx 10rpx 0rpx rgba(255,79,125,0.3);
+  border-radius:48rpx;
+  margin:0 auto;
+  position: absolute;
+  bottom:56rpx;
+  left:86rpx;
+  font-size: 33rpx;
+}
+
+
+
+

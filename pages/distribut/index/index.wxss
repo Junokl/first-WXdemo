@@ -1,0 +1,145 @@
+/* index.wxss */
+.index-bg{
+    background-color: #f94f50;
+    background: url("http://test5.tp-shop.cn/template/mobile/new2/static/images/fbag.png") 0.17067rem 0 #f94f50 no-repeat;
+    height: 293rpx;
+}
+.index-head{
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50rpx;
+    margin-left: 20rpx;
+    margin-top: 70rpx;
+    float: left;
+}
+.index-txt{
+    float: left;
+    margin-left: 10rpx;
+    margin-top: 80rpx;
+}
+.index-name{
+    color: white;
+    font-size: 30rpx;
+}
+.index-right{
+    float: right;
+    margin-right: 20rpx;
+    margin-top: 20rpx;
+}
+.index-set{
+    width: 50rpx;
+    height: 50rpx;
+    background-repeat: no-repeat;
+    background-size: 50rpx;
+    float: right;
+}
+.index-time{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 25rpx;
+    margin-top: 200rpx;
+}
+.index-ul{
+    height: 373rpx;
+    background-color: #e2e3e8;
+    padding: 5rpx 0;
+}
+.index-li{
+    height: 181rpx;
+    margin-top: 2rpx;
+    background-color: white;
+}
+.index-cell{
+    width: 186rpx;
+    float: left;
+}
+.index-line{
+    width: 2rpx;
+    height: 161rpx;
+    margin-top: 20rpx;
+    float: left;
+    background-color: #e2e3e8;
+}
+.index-line2{
+    width: 2rpx;
+    height: 161rpx;
+    float: left;
+    background-color: #e2e3e8;
+}
+.index-img{
+    width: 65rpx;
+    height: 52rpx;
+    margin-top: 50rpx;
+    margin-left: 61rpx;
+}
+.index-txt2{
+    font-size: 26rpx;
+    text-align: center;
+    color: #777;
+}
+.index-detail{
+    height: 100%;
+    background-color: white;
+    padding: 20rpx 0;
+}
+.index-title{
+    height: 40rpx;
+}
+.index-distribut{
+    width: 15px;
+    height: 13px;
+    margin-left: 20rpx;
+    float: left;
+}
+.index-withdrawal{
+    font-size: 25rpx;
+    color: #7f7f7f;
+    float: left;
+    margin-left: 10rpx;
+}
+.index-arrow{
+    width: 15rpx;
+    height: 23rpx; 
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    float: left;
+}
+.index-txt3{
+    width: 50%;
+    height: 85rpx;
+    color: red;
+    font-size: 30rpx;
+    margin-top: 25rpx;
+    margin-left: 30rpx;
+    float: left;
+}
+.index-detail{
+    height: 85rpx;
+    font-size: 30rpx;
+    color: #7f7f7f;
+}
+.index-txt4{
+    font-size: 30rpx;
+    color: #7f7f7f;
+}
+.index-txt5{
+    font-size: 30rpx;
+    color: #7f7f7f;
+    background-color: white;
+    padding-left: 20rpx;
+}
+.index-choose{
+    height: 150rpx;
+    background-color: white;
+    padding-top: 50rpx;
+}
+.index-btn{
+    width: 80%;
+    height: 80rpx;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 80rpx;
+    margin-left: 10%;
+    background-color: red;
+    color: white;
+    border-radius: 10rpx;
+}

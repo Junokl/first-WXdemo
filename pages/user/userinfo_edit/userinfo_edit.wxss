@@ -1,0 +1,135 @@
+page{
+    background-color: white;
+}
+.user-container{
+    padding-top: 100rpx;
+}
+.label-input{
+    font-size: 28rpx;
+    width: 680rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 35rpx;
+    line-height: 90rpx;
+    border: 1rpx #ddd solid;
+    border-radius: 10rpx;
+    position: relative;
+}
+/* input[formType="submit"]:-ms-input-placeholder { 
+  color: #ccc;
+} */
+.label{
+    box-sizing: border-box;
+    flex: 0 0 200rpx;
+    box-sizing: border-box;
+    padding-right: 25rpx;
+}
+.input{
+    box-sizing: border-box;
+    height: 90rpx;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 5rpx;
+}
+
+.simple{
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1rpx #ddd solid;
+}
+.submit{
+    width: 600rpx;
+    margin: 0 75rpx;
+    background-color: #ff4f70;
+    color: white;
+    line-height: 90rpx;
+    border-radius: 10rpx;
+    border: none;
+}
+
+.verify-box{
+    font-size: 28rpx;
+    width: 680rpx;
+    margin: 0 35rpx;
+    line-height: 90rpx;
+}
+.verify-input{
+    box-sizing: border-box;
+    float: left;
+    height: 90rpx;
+    width: 400rpx;
+    padding-left: 10rpx;
+}
+.verify-btn{
+    box-sizing: border-box;
+    float: right;
+    line-height: 90rpx;
+    padding: 0 10rpx;
+    background-color: #ec5151;
+    color: white;
+    border-radius: 10rpx;
+}
+.btn-disable{
+    background-color: grey;
+}
+.item{
+    margin-bottom: 70rpx;
+}
+.gender-box{
+    width: 50%;
+    float: left;
+    padding: 100rpx 0 200rpx 0;
+}
+.gender{
+    background-repeat: no-repeat !important;
+    background-size: 4.48rem !important;
+    width: 2.13333rem;
+    height: 2.73067rem;
+    margin: 0 auto;
+}
+.boy {
+    background-position: 0 0 !important;
+}
+.girl {
+    background-position: 0 -2.92267rem !important;
+}
+.boy-click {
+    background-position: -2.34667rem 0 !important;
+}
+.girl-click {
+    background-position: -2.368rem -2.92267rem !important;
+}
+
+
+.item-newpass{
+  margin-bottom:0rpx !important;
+}
+.label-img{
+  position: absolute;
+  top:50%;
+  right:30rpx;
+  transform: translateY(-50%);
+  width:20rpx;
+  height:20rpx;
+}
+.label-text{
+  width:100%;
+  box-sizing: border-box;
+  line-height: 36rpx;
+  padding-bottom:49rpx;
+}
+.defalut-submit{
+    width: 600rpx;
+    margin: 0 75rpx;
+    background-color: #EBEBEB;
+    color: #333;
+    line-height: 90rpx;
+    border-radius: 10rpx;
+    border: none;
+    outline: none;
+}
+
+
+

@@ -1,0 +1,28 @@
+<!--pages/user/brand_list/brand_list.wxml-->
+<view class="containter">
+  <view class="app-product-list">
+    <view class="app-product-item" wx:for="{{resultData.goods_list}}" wx:key="{{index}}">
+      <navigator class="app-product-pic mr-30" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+        <image class="default-pic" src="{{item.goods_thumb}}"></image>
+      </navigator>
+      <navigator class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+        <view class="app-product-code flex">
+          <view class="app-product-title ellipsis-2 flex-auto">{{item.goods_name}}</view>
+          <view class="app-product-market ml-20 size-24 c-theme-1">¥{{item.shop_price}}</view>
+        </view>
+        <view class="app-product-price flex-between">
+          <view class="flex-auto size-22 c-999" wx:if="{{userInfo.level == 3 && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0' }}">
+            预估佣金 <text class="c-theme-1">¥</text>
+            <text class="size-26 c-theme-1">{{filter.toKeepTwoDot(item.distribut, item.distribute_rate)}}</text>
+          </view>
+          <view class="app-product-sharebtn size-22 c-fff bg-theme-1">分享返佣</view>
+        </view> 
+      </navigator>
+  </view>
+  </view>
+  <view class="new-no-data fixed" wx:if="{{!resultData.goods_list || resultData.goods_list.length == 0}}">
+    <image src="../../../images/no_cart.png" class="cart-image"/>
+    <view class="new-no-message size-28 c-999 mb-30 mt-30">您暂时还没相关的品牌哦</view>
+    <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+  </view>
+</view>

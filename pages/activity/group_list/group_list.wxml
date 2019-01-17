@@ -1,0 +1,31 @@
+<!-- group_list.wxml -->
+<view class="container">
+    <view class="choice_box">
+        <!-- <image wx:if='{{requestData.ad.ad_code}}' class="group-purchase default-banner" src="{{requestData.ad.ad_code}}" /> -->
+        <view class="app-product-list">
+            <block wx:for="{{requestData.groups}}" wx:key="index">
+                <view class="app-product-item">
+                    <navigator class="app-product-pic mr-30" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}&item_id={{item.item_id}}">
+                        <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                    </navigator>
+                    <navigator class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}&item_id={{item.item_id}}">
+                        <view class="app-product-title ellipsis-2">{{item.title}}</view>
+                        <view class="app-coupon-message flex-between">
+                            <view class="size-22 c-999 flex-center">
+                                <image src="../../../images/ksd.png" class="app-coupon-time"></image>
+                                <text>倒计时　</text>
+                                <text class="c-theme-1">{{ item.remainTime }}</text>
+                            </view>
+                            <view class="size-24 c-theme-1 ">¥<text class="size-34">{{item.price}}</text></view>
+                        </view>
+                    </navigator>
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="new-no-data fixed" wx:if="{{!requestData.groups || requestData.groups.length == 0}}">
+        <image src="../../../images/no_cart.png" class="cart-image"/>
+        <view class="new-no-message size-28 c-999 mb-30 mt-30">您暂时还没相关的商品数据哦</view>
+        <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+    </view>
+</view>

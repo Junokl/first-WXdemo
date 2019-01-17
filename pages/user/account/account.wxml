@@ -1,0 +1,22 @@
+<!--account.wxml-->
+<view class="container">
+    <view class="new-account-bg">
+        <image src="../../../images/user_card.png" />
+        <view class="new-account-money">
+            <view class="new-account-money-title size-22 c-fff mb-20">可用余额</view>
+            <view class="new-account-money-count bold c-fff">{{ userMoney }}</view>
+        </view>
+        <view class="size-22 new-account-frozen">冻结金额  {{frozenMoney}}</view>
+    </view>
+    <view class="common-list mb-100">
+        <navigator class="common-item" wx:for="{{manageList}}" wx:key="{{index}}" url="{{item.url}}">
+            <view class="common-item-title">{{item.des}}</view>
+            <view class="common-item-mess"></view>
+            <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+        </navigator>
+    </view>
+    <view class="app-account-footer flex-center">
+        <view url="/pages/user/recharge/recharge?money={{userMoney}}" bindtap="downloadApp" class="app-account-btn size-30 c-theme-1">我想充值</view>
+        <view url="/pages/user/withdrawals/withdrawals?money={{userMoney}}" bindtap="downloadApp" class="app-account-btn size-30  c-999">立即提现</view>
+    </view>
+</view>

@@ -1,0 +1,12 @@
+
+
+// 保留1位小数
+var toKeepTwoDot = function (commission) {
+  var str = (typeof commission == 'number') ? commission.toString() : commission;
+  return str.substring(0,4);
+}
+
+// 导出
+module.exports = {
+  toFix: toKeepTwoDot
+}

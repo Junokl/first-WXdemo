@@ -1,0 +1,79 @@
+<!-- user_type==3，团长显示顶部按钮 -->
+<view class='weui-navbar-top' wx:if="{{user_type==3}}">
+  <view class="weui-navbar">
+    <view wx:for="{{topBar}}" wx:key="{{index}}" class="weui-navbar_item {{currentTab==index ? 'topBar-active' : ''}}" data-idx="{{index}}" bindtap='changeTopTab'>
+      {{item.name}}
+    </view>
+  </view>
+</view>
+<!-- nav-fixed -->
+<view class="{{user_type==3?'order-title-top-1':'order-title-top-0'}} {{user_type == 1 ? 'm-top' : '' }}">
+  <view class="order-title">
+    <view wx:for="{{statuses}}" wx:key="{{index}}" class="order-status {{activeStatus==item.status?'active':''}}" data-status="{{item.status}}" bindtap='changeTab'>
+      {{item.name}}
+    </view>
+  </view>
+</view>
+<view class="{{user_type==3?'order-list-1':'order-list-0'}}">
+  <view class="order-li" wx:for="{{orders.list}}" wx:key="{{index}}">
+    <view class='list-one mr-30 ml-30'>
+      <image class="order-img default-pic radius" src="{{url}}/api/goods/goodsThumImages?goods_id={{item.good_id}}&width=200&height=200"></image>
+      <view class="order-content p-30">
+        <view class='order-content-top'>
+          <view class="order-sn c-999 size-22">订单号  {{item.order_sn}}</view>
+          <view class='goods-name-Name'>
+            <view class=' c-theme-3 size-24' style='margin-right:10rpx;'>
+              ¥{{item.goods_price}}
+            </view>
+            <view class="c-theme-3 size-24">x{{item.goods_list[0].goods_num}}</view>
+          </view>
+        </view>
+        <view class='goods-name-box ellipsis-1'>
+          <view class="goods-name size-24 ">{{item.goods_list[0].goods_name}}</view>
+        </view>
+        <view class='order-content-bottom'>
+          <view class="order-time c-999 size-22">{{item.createTimeFormat}}</view>
+          <view class="order-total c-999 size-24">
+            获得佣金
+            <text class='c-theme-3 size-26' style="font-weight:600;">¥</text>
+            <text class='size-34 c-theme-3' style="font-weight:600;">{{item.money}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- <view class="order-list mt-80">
+    <view class="order-li" wx:for="{{orders}}" wx:key="{{index}}" wx:for-item="order">
+        <view class="order-header">
+            <view class="order-seller ellipsis-1">买家：{{order.nickname}}</view>
+            <view class="order-status-name">
+                {{order.status==0?'未付款':''}}{{order.status==1?'已付款':''}}{{order.status==2?'等待分成(已收货)':''}}
+                {{order.status==3?'已分成':''}}{{order.status==4?'已取消':''}}
+            </view>
+        </view>
+        <view class="order-sn">订单号：{{order.order_sn}}</view>
+        <view class="order-time">{{order.createTimeFormat}}</view>
+
+        <view class="order-goodimg" wx:for="{{order.goods_list}}" wx:key="{{index}}">
+            <image class="order-img default-pic" src="{{url}}/api/goods/goodsThumImages?goods_id={{item.goods_id}}&width=200&height=200"></image>
+            <!-- <image class="order-img default-pic" src="{{item.goods_thumb}}"></image> -->
+<!-- <view class="order-content">
+                <view class="goods-name ellipsis-1">{{item.goods_name}}</view>
+                <view style="color:red;">¥{{item.member_goods_price}}</view>
+                <view class="ellipsis-1" style="color:#7f7f7f;">{{item.spec_key_name}}</view>
+            </view>
+        </view>
+        
+        <view class="order-total">
+            <text style="color:#7f7f7f;">获得佣金：</text><text style="color:red;">¥{{order.money}}</text>
+        </view>
+    </view>
+</view> -->
+<view class="new-no-data fixed" wx:if="{{!orders.list || orders.list.length == 0}}">
+  <image src="../../../images/no_cart.png" class="cart-image" />
+  <view class="new-no-message size-28 c-999 mb-30 mt-30">您暂时还没相关的订单哦</view>
+  <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">
+    赶快去逛逛吧
+  </navigator>
+</view>

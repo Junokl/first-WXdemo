@@ -1,0 +1,174 @@
+<!-- collect_list.wxml -->
+<wxs src="../../../utils/filter.wxs" module="filter" />
+<wxs src="./collect_list.wxs" module="filters" />
+<view class="pd-bg-fff">
+  <view class='nav-top'>
+    <view class="follow-nav">
+      <view data-i="1" class="nav-item {{activeFollow==1?'nav-item-on':''}}" bindtap="checkNav">
+        商品宝贝
+      </view>
+      <view data-i="2" class="nav-item {{activeFollow==2?'nav-item-on':''}}" bindtap="checkNav">
+        品牌店铺
+      </view>
+    </view>
+    <view class='nav-top-bj' bindtap='edit_btn'>编辑</view>
+  </view>
+  <!-- 商品宝贝二级导航 -->
+  <!-- <view class='tow-nav' wx:if="{{activeFollow==1}}">
+      <view class='tow-nav-img-dg'>
+        <image class='img-dg' src="{{sort_size_img}}"></image>
+      </view>
+      <view class="type-navbar nav-fixed">
+          <view class="type-box" wx:for="{{categories}}"  wx:key="index">
+              <view id="{{item.id}}" class="type-navbar-item {{currentTab==index ? 'type-item-on' : ''}}" data-idx="{{index}}" bindtap="changeTopTab">
+                  {{item.name}}
+              </view>
+          </view>
+      </view>
+    </view> -->
+  <!-- 品牌店铺二级导航 -->
+  <!-- <view class='tow-nav' wx:if="{{activeFollow==2}}">
+      <view class='tow-nav-img-dg'>
+        <image class='img-dg' src='../../../images/sort.png'></image>
+      </view>
+      <view class="type-navbar nav-fixed">
+          <view class="type-box" wx:for="{{categories_store}}"  wx:key="index">
+              <view id="{{item.id}}" class="type-navbar-item {{currentTab==index ? 'type-item-on' : ''}}" data-idx="{{index}}" bindtap="changeTopTab">
+                  {{item.name}}
+              </view>
+          </view>
+      </view>
+    </view> -->
+  <!-- 商品宝贝 -->
+  <!-- 商品宝贝(未编辑状态） -->
+  <view class='list-box' wx:if="{{!activeEdit_goods&&activeFollow==1&&(goods_list.length > 0)}}">
+    <view class='list-one pt-30 pb-30' wx:for="{{goods_list}}" wx:key="{{index}}">
+      <navigator url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}" class='list-left'>
+        <image src='{{item.goods_thumb}}' class='default-pic list-img radius'></image>
+      </navigator>
+      <navigator class='list-right pl-30' url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+        <view class='list-name c-333 size-28 ellipsis-2'>
+          <text class='c-333 size-28'>{{item.goods_name}}</text>
+        </view>
+        <view class='list-nice size-26'>
+          <view class='c-999 size-26'>
+            好评率
+            <text class='c-theme-3'>{{item.high_rate || 99}}%</text>
+          </view>
+          <view class='c-theme-3 size-26' style='font-weight:bold;'>
+            ￥
+            <text class='size-34'>{{filter.toKeepTwoDot(item.shop_price)}}</text>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+  <!-- 商品宝贝(在编辑状态） -->
+  <view class='list-box' wx:if="{{activeEdit_goods&&activeFollow==1&&(goods_list.length > 0)}}">
+    <view class='list-one pt-30 pb-30' wx:for="{{goods_list}}" wx:key="{{index}}">
+      <view class='radius_btn' bindtap="selectGoods" data-checked="{{item.checked}}" data-index="{{index}}" data-goodsId="{{item.goods_id}}">
+        <icon type="success" value="{{index}}" size="18" checked="{{item.checked}}" color="{{item.checked?'red':'gray'}}" />
+      </view>
+      <view class='list-left'>
+        <image src='{{item.goods_thumb}}' class='default-pic list-img radius'></image>
+      </view>
+      <view class='list-right pl-30'>
+        <view class='list-name c-333 size-28 ellipsis-2'>
+          <text class='c-333 size-28'>{{item.goods_name}}</text>
+        </view>
+        <view class='list-nice size-26'>
+          <view class='c-999 size-26'>
+            好评率
+            <text class='c-theme-3'>{{filters.toFix(item.store_count)}}%</text>
+          </view>
+          <view class='c-theme-3 size-26' style='font-weight:bold;'>
+            ￥
+            <text class='size-34'>{{filter.toKeepTwoDot(item.shop_price)}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='footer-n' wx:if="{{activeEdit_goods&&activeFollow==1&&(goods_list.length > 0)}}">
+  <view class='footer-n-left pl-30' bindtap='all_btn'>
+    <icon class="list-radius" type="success" size="18" color="{{checkAllToggle?'red':'gray'}}" />
+    <view class='footer-select size-28'>全选</view>
+  </view>
+  <view class='footer-n-right bg-theme-1' bindtap='cancelCollectGoods'>
+    <view class='size-36'>确认取关</view>
+  </view>
+</view>
+<!-- 品牌店铺 -->
+<!-- 品牌店铺(未编辑状态） -->
+<view class='list-box-2' wx:if="{{!activeEdit_store&&activeFollow==2&&(list.length > 0)}}">
+  <navigator url="/pages/store/index/index?store_id={{item.store_id}}" wx:for="{{list}}" wx:key="{{index}}" class='list-one-2'>
+    <view class='list-left-2'>
+      <image src='{{item.store_logo}}' class='default-pic img-style-2 wh100 '></image>
+    </view>
+    <view class='list-right-2'>
+      <view class='item-name-2 size-34 ellipsis-1'>
+        <text class='c-333 size-34'>{{item.store_name}}</text>
+      </view>
+      <view class="list-right-bottom">
+        <!-- <view class='font-style c-999 size-22'>好评率 <text class='c-theme-3 size-22'>{{filters.toFix(item.store_count)}}%</text></view> -->
+        <view class='font-style c-999 size-22'>
+          关注数量
+          <text class='c-theme-3 size-22'>{{item.store_collect}}</text>
+        </view>
+      </view>
+      <view class='img-posi'>
+        <image class='img-posi-iconf default-pic' src='../../../images/icon-arrowdown.png'></image>
+      </view>
+    </view>
+  </navigator>
+</view>
+<!-- 品牌店铺(在编辑状态） -->
+<view class='list-box-2' wx:if="{{activeEdit_store&&activeFollow==2&&(list.length > 0)}}">
+  <view wx:for="{{list}}" wx:key="{{index}}" class='list-one-2'>
+    <view class='radius_btn' bindtap="selectGoods" data-index="{{index}}" data-storeId="{{item.store_id}}" data-selected="{{item.checked}}">
+      <icon type="success" value="{{index}}" size="18" checked="{{item.checked}}" color="{{item.checked?'red':'gray'}}" />
+    </view>
+    <view class='list-left-2'>
+      <image src='{{item.store_logo}}' class='default-pic img-style-2 wh100'></image>
+    </view>
+    <view class='list-right-2'>
+      <view class='item-name-2 size-34 ellipsis-1'>
+        <text class='c-333 size-34'>{{item.store_name}}</text>
+      </view>
+      <view class="list-right-bottom-ing">
+        <!-- <view class='font-style c-999 size-22'>好评率 <text class='c-theme-3 size-22'>{{item.nice}}</text></view> -->
+        <view class='font-style c-999 size-22'>
+          关注数量
+          <text class='c-theme-3 size-22'>{{item.store_collect}}</text>
+        </view>
+      </view>
+      <view class='img-posi'>
+        <image class='img-posi-iconf default-pic' src='../../../images/icon-arrowdown.png'></image>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='footer-n' wx:if="{{activeEdit_store&&activeFollow==2&&(list.length > 0)}}">
+  <view class='footer-n-left pl-30' bindtap='all_btn'>
+    <icon class="list-radius" type="success" size="18" color="{{checkAllToggle?'red':'gray'}}" />
+    <view class='footer-select size-28'>全选</view>
+  </view>
+  <view class='footer-n-right bg-theme-1' bindtap='cancelCollectGoods'>
+    <view class='size-36'>确认取关</view>
+  </view>
+</view>
+<view class="no-data" wx:if="{{activeFollow==1&&(!goods_list || goods_list.length == 0)}}">
+  <image src="../../../images/no_collection.png" class="cart-image" />
+  <view class="no-data-title size-26">您暂时还没有收藏任何宝贝哦</view>
+  <navigator url="/pages/index/index/index" class="lookat size-26 bg-theme-1" open-type="switchTab">
+    立即去商城逛逛吧
+  </navigator>
+</view>
+<view class="no-data" wx:if="{{activeFollow==2&&(!list || list.length == 0)}}">
+  <image src="../../../images/no_store.png" class="cart-image" />
+  <view class="no-data-title size-26">您暂时还没有收藏任何店铺哦</view>
+  <navigator url="/pages/index/index/index" class="lookat size-26 bg-theme-1" open-type="switchTab">
+    立即去商城逛逛吧
+  </navigator>
+</view>

@@ -1,0 +1,41 @@
+<!-- index.wxml -->
+<wxs src="../../../utils/filter.wxs" module="filter" />
+<view class='list-box'>
+    <view class="swiper-warrper" wx:if="{{requestData.banners && requestData.banners.length}}">
+        <swiper class="app-product-swiper" autoplay="true" interval="3000" duration="1000">
+            <block wx:for="{{requestData.banners}}" wx:key="index" >
+                <swiper-item data-ids="{{index}}">
+                    <view class="app-product-banner">
+                        <image src="{{item}}" class="slide-image default-pic"/>
+                    </view>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class="app-product-list">
+        <block wx:for="{{requestData.list}}" wx:key="index">
+            <view class="app-product-item">
+                <navigator class="app-product-pic mr-30" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                </navigator>    
+                <navigator class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <view class="app-product-title ellipsis-2" style="magin-bottom: 30rpx; height: 72rpx;">{{item.goods_name}}</view>
+                    <view class="app-product-price flex-between">
+                        <view class="flex-auto"><text class="app-product-prefix">¥</text>{{item.shop_price}}</view>
+                        <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 2 && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate)}}</text>
+                        <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 3 && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate)}}</text>
+                    </view> 
+                    <view class="app-product-message flex-center size-22 c-999">
+                        <view class="app-product-original flex-auto through">¥{{item.market_price}}</view>
+                        <!-- <view class="app-product-sale">销售量：{{item.sales_sum}}</view> -->
+                    </view>
+                </navigator>
+            </view>
+        </block>
+    </view>
+    <view class="new-no-data" wx:if="{{!requestData.list || requestData.list.length == 0}}">
+        <image src="../../../images/no_cart.png" class="cart-image"/>
+        <view class="new-no-message size-28 c-999 mb-30 mt-30">您暂时还没相关的商品数据哦</view>
+        <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+    </view>
+</view>

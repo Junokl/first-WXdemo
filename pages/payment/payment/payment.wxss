@@ -1,0 +1,15 @@
+/* payment.wxss */
+page {
+    background-color: #fff;
+}
+.payment-wapprer {
+    padding-top: 50rpx;
+    box-sizing: border-box;
+    width: 100%;
+}
+.payment-pic {
+    width: 230rpx;
+    height: 230rpx;
+    flex: 0 0 230rpx;
+    margin-right: 10rpx;
+}

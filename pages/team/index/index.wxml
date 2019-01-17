@@ -1,0 +1,37 @@
+<!-- index.wxml -->
+<view class='list-box'>
+    <navigator class='list-one' wx:for="{{goodlist}}" wx:key="{{index}}" url="/pages/team/team_info/team_info?goods_id={{item.goods_id}}&item_id={{item.item_id}}&team_id={{item.team_id}}">
+        <view class="list-one-border">
+            <view class='list-left'>
+                <image src='{{item.share_img}}' class='default-pic list-img radius'></image>
+            </view>
+            <view class="list-middle">
+                <view class='list-name'>
+                    <view class="size-24 c-333">{{item.act_name}}</view>
+                </view>
+                <view class='list-price'>
+                    <view class='c-999 size-22'>￥{{item.goods.shop_price}}</view>
+                    <view class='size-22 c-999 ml-30 list-price-tuanjia'>
+                        拼团价
+                        <view class="c-theme-3 size-26" style='font-weight:900;'>
+                            ￥
+                            <text class='size-34'>{{item.team_price}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class='list-right'>
+                <view class='size-22 list-num'>
+                    <text class='c-theme-3'>{{item.needer}}</text>
+                    人团
+                </view>
+                <view class='list-text bg-theme-1 size-22'>赶紧拼团</view>
+            </view>
+        </view>
+    </navigator>
+    <view class="new-no-data fixed" wx:if="{{!goodlist || goodlist.length == 0}}">
+        <image src="../../../images/no_cart.png" class="cart-image"/>
+        <view class="new-no-message size-28 c-999 mb-30 mt-30">您暂时还没相关的商品数据哦</view>
+        <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+    </view>
+</view>

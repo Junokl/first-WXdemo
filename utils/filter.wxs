@@ -1,0 +1,39 @@
+// 使用情况：<wxs src="../../utils/filter.wxs" module="filter" />
+// <view>{{filter.toKeepTwoDot(commission)}}</view>
+// 过滤器
+
+// 保留两位小数
+var toKeepTwoDot = function (prams1, prams2, prams3) {
+    var commission = 0
+    if (prams3) {
+        commission = parseFloat(prams1) * parseFloat(prams2) * parseFloat(prams3) / 10000
+    } else {
+        commission = parseFloat(prams1) * parseFloat(prams2) / 100
+    }
+    var str = (typeof commission == 'number') ? commission.toString() : commission;
+    return str.substring(0, str.indexOf('.') + 3);
+}
+
+var formatTime = function(timestamp, hasSecord) {
+    var date = ((timestamp) ? getDate(timestamp * 1000) : getDate());  
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    var formatNumber = function (n) {
+        n = n.toString();
+        return n[1] ? n : '0' + n;
+    };
+    if (typeof hasSecord != 'undefined' && hasSecord == false) {
+        return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':');
+    }
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+}
+
+// 导出
+module.exports = {
+    toKeepTwoDot: toKeepTwoDot,
+    formatTime: formatTime
+}

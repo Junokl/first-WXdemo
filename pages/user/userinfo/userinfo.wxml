@@ -1,0 +1,65 @@
+<!--userinfo.wxml-->
+<view class="container">
+  <view class="user-container">
+    <view class="common-list bg-fff" style="border-bottom: 20rpx solid #f2f2f2">
+      <view class="common-item" bindtap="changeAvatar">
+        <view class="common-item-title">头像</view>
+        <view class="common-item-mess">
+          <image class="default-pic wh-100 radius-50" src="{{userInfo.head_pic?userInfo.head_pic:defaultAvatar}}"></image>
+        </view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </view>
+
+      <view class="common-item" data-type="nickname" bindtap="editUserInfo">
+        <view class="common-item-title">用户名</view>
+        <view class="common-item-mess size-26 c-999">{{userInfo.nickname}}</view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </view>
+      <view class="common-item" data-type="sex" bindtap="editUserInfo">
+        <view class="common-item-title">性别</view>
+        <view class="common-item-mess size-26 c-999">{{userInfo.sex?(userInfo.sex==1?'男':'女'):'保密'}}</view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </view>
+      <view class="common-item" data-type="sex" bindtap="editUserInfo">
+        <view class="common-item-title">手机</view>
+        <view class="common-item-mess size-26 c-999">{{userInfo.mobile}}</view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </view>
+      <!-- <picker class="common-picker" mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="common-item">
+          <view class="common-item-title">出生日期</view>
+          <view class="common-item-mess size-26 c-999">{{date}}</view>
+          <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+        </view>
+      </picker> -->
+      <view class="common-item" data-type="email" bindtap="editUserInfo">
+        <view class="common-item-title">邮箱</view>
+        <view class="common-item-mess size-26 c-999">{{userInfo.email}}</view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </view>
+    </view>
+    <view class="common-list bg-fff">
+      <view class="common-item" data-type="password" bindtap="editUserInfo">
+        <view class="common-item-title">修改密码</view>
+        <view class="common-item-mess"></view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </view>
+      <navigator class="common-item" url="/pages/user/address_list/address_list">
+        <view class="common-item-title">收货地址</view>
+        <view class="common-item-mess"></view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </navigator>
+      <view class="common-item"  data-type="paypwd" bindtap="editUserInfo">
+        <view class="common-item-title">支付密码</view>
+        <view class="common-item-mess"></view>
+        <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+      </view>
+    </view>
+    <!-- <view class="userInfo-btn-warrper p30 pt-30 bg-fff">
+      <view class="userInfo-btn size-32 bg-theme-1 c-fff radius">保存</view>
+    </view> -->
+  </view>
+</view>
+<!-- <view class='btn'>
+  保存
+</view> -->

@@ -1,0 +1,21 @@
+<!--message_notice.wxml-->
+<view class="container">
+    <view class="type-navbar nav-fixed">
+        <view class="type-box" wx:for="{{categories}}" wx:key="{{index}}">
+            <view data-status="{{item.status}}" class="type-navbar-item {{activeStatus == item.status ? 'type-item-on' : ''}}" bindtap="changeTab">
+                {{item.name}}
+            </view>
+        </view>
+    </view>
+    <view class="msg-list mt-80">
+        <view class="msg-box" wx:for="{{messages}}" wx:key="{{index}}">
+            <view class="msg-time">{{item.sendTimeFommat}}</view>
+            <view>{{item.message}}</view>
+        </view>
+    </view>
+    <view class="no-data mt-80" wx:if="{{!messages || messages.length == 0}}">
+        <image src="../../../images/no_cart.png" class="cart-image"/>
+        <view class="no-data-title">没有找到相关的记录</view>
+        <navigator url="/pages/index/index/index" class="lookat" open-type="switchTab"> 去逛逛 </navigator>
+    </view>
+</view>

@@ -1,0 +1,13 @@
+
+// 使用情况：<wxs src="../../utils/filter.wxs" module="filter" />
+// <view>{{filter.toFix(commission)}}</view>
+// 过滤器
+
+// 保留0位小数
+var toKeepTwoDot = function (commission) {
+  var str = (typeof commission == 'number') ? commission.toString() : commission;
+  return str.substring(0, str.indexOf('.') + 0);
+}
+module.exports={
+  toFix: toKeepTwoDot
+}

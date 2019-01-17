@@ -1,0 +1,34 @@
+<!--integralMall.wxml-->
+<view class="container">
+    <view class="nav nav-fixed">
+        <navigator class="nav-item" bindtap="changeTab" id='rank_default'>默认</navigator>
+        <navigator class="nav-item" bindtap="changeTab" id='rank_num'>兑换量<view class="ico-dg"><image class="wh100" src="../../../images/dg.png"></image></view></navigator>
+        <navigator class="nav-item" bindtap="changeTab" id='rank_integral'>积分值<view class="ico-dg"><image class="wh100" src="../../../images/dg.png"></image></view></navigator>
+    </view>
+    <view class="choice_list mt-90">
+        <navigator class="copyright" url="{{requestData.ad.ad_link}}">
+            <image class="wh100 default-banner" src="{{requestData.ad.ad_code}}"/>
+        </navigator>
+        <block wx:for="{{requestData.goods_list}}" wx:key="{{index}}">
+            <navigator class="choice_item" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                <view class="img-wrap">
+                    <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                </view>
+                <view class="item-cont">
+                    <view class="title">{{item.goods_name}}</view>
+                    <view class="price">
+                    <view class="discount-price">
+                        ¥{{item.calPoint}}</view>+{{item.exchange_integral}}积分
+                    </view>
+                    <view class="market-price">市场价  ¥  {{item.market_price}}</view>
+                </view>
+                <button class="exchange-btn">立即兑换</button>
+            </navigator>
+        </block>
+    </view>
+    <view class="no-data" wx:if="{{!requestData.goods_list || requestData.goods_list.length == 0}}">
+        <image src="../../../images/no_cart.png" class="cart-image"/>
+        <view class="no-data-title">没有找到相关的记录</view>
+        <navigator url="/pages/index/index/index" class="lookat" open-type="switchTab"> 去逛逛 </navigator>
+    </view>
+</view>

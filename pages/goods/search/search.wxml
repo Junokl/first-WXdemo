@@ -1,0 +1,114 @@
+<wxs src="../../../utils/filter.wxs" module="filter" />
+<view class="container">
+  <view class="nav nav-fixed">
+    <view class="nav-item" bindtap="changeTab" data-href="{{requestData.orderby_default}}">综合</view>
+    <view class="nav-item" bindtap="changeTab" data-href='{{requestData.orderby_sales_sum}}'>销量</view>
+    <view class="nav-item" bindtap="changeTab" data-href='{{requestData.orderby_price}}'>价格
+      <view class="ico-dir {{requestData.sort!='shop_price'?'':(requestData.sort_asc=='asc'?'ico-dir-up':'ico-dir-dn')}}" style="background-image: url('https://img.gzzhitu.com/picture/20190116/154764280453816.png');"></view>
+    </view>
+    <view class="nav-item" bindtap="changeTab" bindtap="openFilterModal">筛选
+      <view class="ico-filter">
+        <image class="wh100" src="../../../images/xx.png"></image>
+      </view>
+    </view>
+    <view class="nav-item nav-search" bindtap="openSearchModal">
+      <image class="wh100 search-img" src="../../../images/search.png"></image>
+    </view>
+  </view>
+
+  <view class="app-product-list mt-90">
+    <block wx:for="{{requestData.goods_list}}" wx:key="index">
+      <view class="app-product-item" wx:if="{{item.goods_id}}">
+        <navigator class="app-product-pic" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+          <image class="default-pic" src="{{item.goods_thumb}}"></image>
+        </navigator>
+        <navigator class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+          <view class="app-product-title ellipsis-2" style="height: 72rpx;">{{item.goods_name}}</view>
+          <view class="app-product-price flex-between">
+            <view class="flex-auto">
+              <text class="app-product-prefix">¥</text>{{item.shop_price}}</view>
+            <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 2 && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate)}}</text>
+            <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 3 && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate)}}</text>
+          </view>
+          <view class="app-product-message flex-center size-22 c-999">
+            <view class="app-product-original flex-auto through">¥{{item.market_price}}</view>
+            <!-- <view class="app-product-sale">销售量：{{item.sales_sum}}</view> -->
+          </view>
+        </navigator>
+      </view>
+    </block>
+  </view>
+
+  <view class="new-no-data fixed" style="top: 92rpx;" wx:if="{{!requestData.goods_list || requestData.goods_list.length == 0}}">
+    <image src="../../../images/no_cart.png" class="cart-image" />
+    <view class="new-no-message size-28 c-999 mb-30 mt-30">暂时还没相关商品哦</view>
+    <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+  </view>
+
+</view>
+
+<!-- 筛选弹框  -->
+<view hidden="{{!openFilterModal}}">
+  <view class="cover-layer" bindtap="closeFilterModal"></view>
+  <view class="filter-modal">
+    <icon type="cancel" color="gray" size="22" class="modal-close" bindtap="closeFilterModal" />
+    <button class="viewall-btn" bindtap="restoreData">显示全部分类</button>
+    <view class="filter-box" wx:for="{{requestData.filter_spec}}" wx:key="{{index}}">
+      <view class="filter-name">{{item.name}}</view>
+      <view class="filter-items">
+        <view class="filter-item" wx:for="{{item.item}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+          {{item.name}}</view>
+      </view>
+    </view>
+    <view class="filter-box" wx:for="{{requestData.filter_attr}}" wx:key="{{index}}">
+      <view class="filter-name">{{item.name}}</view>
+      <view class="filter-items">
+        <view class="filter-item" wx:for="{{item.item}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+          {{item.name}}</view>
+      </view>
+    </view>
+    <view class="filter-box" wx:if="{{requestData.filter_brand.length>0}}">
+      <view class="filter-name">相关品牌</view>
+      <view class="filter-items">
+        <view class="filter-item" wx:for="{{requestData.filter_brand}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+          {{item.name}}</view>
+      </view>
+    </view>
+    <view class="filter-box" wx:if="{{requestData.filter_price.length>0}}">
+      <view class="filter-name">价格区间</view>
+      <view class="filter-items">
+        <view class="filter-item" wx:for="{{requestData.filter_price}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+          {{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 搜索弹框 -->
+<view wx:if="{{openSearchModal}}">
+  <view class="search-modal">
+    <view class="search-bar">
+      <image class="search-new-btn" src="../../../images/icon_search.png"></image>
+      <input class="search-input" placeholder="请输入关键字搜索" name="word" auto-focus bindconfirm="submitSearch"></input>
+      <view class="search-clear size-28 c-333 ml-30">取消</view>
+    </view>
+    <view class="search-hot">
+      <view class="hot-title">热门搜索</view>
+      <view class="hot-row">
+        <block wx:for="{{hotWords}}" wx:key="{{index}}">
+          <view class="hot-item" bindtap="searchHotWord" data-word="{{item}}">{{item}}</view>
+        </block>
+      </view>
+    </view>
+    <view class="search-hot" wx:if="{{historyWords.length}}">
+      <view class="hot-title">历史搜索
+        <image src="../../../images/icon_gouwucheshanchu.png" class="hot-clear" bindtap="clearHistoryKey"></image>
+      </view>
+      <view class="hot-row">
+        <block wx:for="{{historyWords}}" wx:key="{{index}}">
+          <view class="hot-item" bindtap="searchHotWord" data-word="{{item}}">{{item}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

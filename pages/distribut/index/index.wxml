@@ -1,0 +1,76 @@
+<!--index.wxml-->
+<view class="index-bg">
+    <image class="index-head default-pic" src="{{headUrl}}"></image>
+    <view class="index-txt">
+        <view class="index-name">{{distribut.user.nickname}}</view>
+        <text class="index-name">{{distribut.store_name}}</text>
+    </view>
+    <view class="index-right">
+        <navigator url='/pages/distribut/set_store/set_store'>
+            <image class="index-set" src="../../../images/icon-setting.png"></image>
+        </navigator>
+        <view class="index-time">开店时间：{{distribut.store_time ? distribut.storeTimeFomate : '暂未开店'}}</view>
+    </view>
+</view>
+<view class="index-ul">
+    <view class="index-li">
+        <navigator class="index-cell" bindtap='distributOrder'>
+            <image class="index-img" src="../../../images/distribut/1.png"></image>
+            <view class="index-txt2">分销订单</view>
+        </navigator>
+        <view class="index-line"></view>
+        <navigator class="index-cell" bindtap='distributTeam'>
+            <image class="index-img" src="../../../images/distribut/2.png"></image>
+            <view class="index-txt2">我的团队</view>
+        </navigator>
+        <view class="index-line"></view>
+        <navigator class="index-cell" bindtap='distributCard'>
+            <image class="index-img" src="../../../images/distribut/3.png"></image>
+            <view class="index-txt2">我的名片</view>
+        </navigator>
+        <view class="index-line"></view>
+        <navigator class="index-cell" bindtap='distributSort'>
+            <image class="index-img" src="../../../images/distribut/4.png"></image>
+            <view class="index-txt2">分销排行</view>
+        </navigator>
+    </view>
+    <view class="index-li">
+        <navigator class="index-cell" url='/pages/index/webview/webview?_url=/api/distribut/must_see'>
+            <image class="index-img" src="../../../images/distribut/5.png"></image>
+            <view class="index-txt2">新手必看</view>
+        </navigator>
+        <view class="index-line2"></view>
+        <navigator class="index-cell" bindtap='distributShop'>
+            <image class="index-img" src="../../../images/distribut/6.png"></image>
+            <view class="index-txt2">查看网店</view>
+        </navigator>
+        <view class="index-line2"></view>
+        <navigator class="index-cell" bindtap='distributMoney'>
+            <image class="index-img" src="../../../images/distribut/7.png"></image>
+            <view class="index-txt2">佣金明细</view>
+        </navigator>
+        <view class="index-line2"></view>
+        <navigator class="index-cell" url='/pages/user/index/index' open-type='switchTab'>
+            <image class="index-img" src="../../../images/distribut/8.png"></image>
+            <view class="index-txt2">会员中心</view>
+        </navigator>
+    </view>
+</view>
+<view class="index-detail">
+    <view class="index-title">
+        <image class="index-distribut" src="../../../images/icon-distribut.png"></image>
+        <navigator url='/pages/user/account/account' class="index-withdrawal">可提现金额(元)</navigator>
+        <image class="index-arrow" src="../../../images/icon-arrowdown.png"></image>
+    </view>
+    <view>
+        <view class="index-txt3">{{distribut.user.user_money}}</view>
+        <view class="index-detail">
+            <view class="index-txt4">今日收入（元） ¥{{distribut.money.today_money}}</view>
+            <view class="index-txt4">总销售额（元） ¥{{distribut.money.withdrawals_money}}</view>
+        </view>
+    </view>
+    <view class="index-txt5">累计获得佣金（元） ¥{{distribut.money.achieve_money}}</view>
+    <view class="index-choose">
+        <navigator class="index-btn" bindtap='goodsList'>选择分销商品</navigator>
+    </view>
+</view>

@@ -1,0 +1,27 @@
+/* account.wxss */
+page {
+    background-color: #fff;
+}
+.new-account-bg {
+    width: 740rpx;
+    height: 430rpx;
+    position: relative;
+    margin: 0 auto;
+}
+.new-account-bg image {
+    width: 740rpx;
+    height: 430rpx;
+}
+.new-account-money {
+    position: absolute;
+    top: 60rpx;
+    left: 70rpx;
+}
+.new-account-frozen {
+    position: absolute;
+    top: 320rpx;
+    left: 70rpx;
+}
+.new-account-money-count {
+    font-size: 100rpx;
+}

@@ -1,0 +1,12 @@
+<!--payment.wxml-->
+<view class="payment-wapprer">
+    <view class="payment-box flex-center p30">
+        <image class="payment-pic" src="../../../images/sbzf.png"></image>
+        <view class="payment-message flex-auto">
+            <view class="payment-item size-26 c-333 mb-20">订单编号　<text class="c-theme-1">{{order.order_sn}}</text></view>
+            <view class="payment-item size-26 c-333 mb-20">订单金额　<text class="c-theme-1">¥ {{order.order_amount}}</text></view>
+        </view>
+    </view>
+    <view class="size-20 c-999 mt-30 p30">* 温馨提示：商城平台以及销售商不会以订单异常、系统升级为由，要求您点击任何网站链接进行退款操作</view>
+</view>
+<view class="app-footer-button flex-center h-100 bg-theme-1 c-fff size-32" bindtap='lookOrder'>查看订单</view>

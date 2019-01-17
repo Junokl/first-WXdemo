@@ -1,0 +1,32 @@
+<!-- address_list.wxml -->
+<view class="container" wx:if="{{addresses.length > 0}}">
+    <view class="address-box" wx:for="{{addresses}}" wx:key="{{index}}">
+        <view class="address-user">
+            <view class="user-name">{{item.consignee}}</view>
+            <text class="default" wx:if="{{item.is_default}}">默认</text>
+        </view>
+        <view class="address-info" bindtap="selectAddress" data-item="{{item}}">
+            <view class="mobile">电话：{{item.mobile}}</view>
+            <view class="address">
+                {{item.province_name}} {{item.city_name}} {{item.district_name}} {{item.twon_name}} {{item.address}}
+            </view>
+        </view>
+        <view class="address-edit" bindtap="editAddress" data-id="{{item.address_id}}">
+            <image src="../../../images/address_edit.png"></image>
+        </view>
+    </view>
+    <view class='address-create-box'>
+        <view class="address-create-left  create-btn" bindtap='address_btn'>使用微信地址</view>
+        <navigator class="address-create-right" url="/pages/user/add_address/add_address">新建地址</navigator>
+    </view>
+</view>
+<view class="new-no-data fixed" wx:if="{{!addresses || addresses.length == 0}}">
+    <image src="../../../images/no_address.png" class="cart-image" />
+    <view class="new-no-message size-28 c-999 mb-30 mt-30">您暂时还没有收货地址哦</view>
+    <view class='new-no-button-box'>
+        <navigator url="/pages/user/add_address/add_address" class="new-no-button bg-theme-1 size-26">
+            新建地址
+        </navigator>
+        <view class="new-no-button bg-theme-1 size-26" style="background: #7AC666;" bindtap='address_btn'>微信地址</view>
+    </view>
+</view>

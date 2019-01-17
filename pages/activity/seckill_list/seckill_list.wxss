@@ -1,0 +1,28 @@
+/* seckill_list.wxss */
+page {
+    background-color: #fff;
+}
+.kill-time{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 120rpx;
+    background-color: #ff4f70; 
+}
+.kill-item {
+    line-height: 52rpx;
+    height: 52rpx;
+}
+.kill-time>view{
+    width: 20%;
+    text-align: center;
+    color: #fff;
+}   
+.kill-time>.timeac{
+    color: #fff;
+}

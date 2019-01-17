@@ -1,0 +1,100 @@
+<wxs src="./coupon.wxs" module="filter" />
+<view class="type-navbar nav-fixed">
+    <view class="type-box" wx:for="{{categories}}" wx:key="index">
+        <view id="{{item.id}}" class="type-navbar-item {{typeId==index ? 'type-item-on' : ''}}" bindtap="changeTopTab" data-id="{{index}}">
+            {{item.name}}
+        </view>
+    </view>
+</view>
+<!-- 没有优惠卷 -->
+<view class="no-data mt-80" wx:if="{{coupons.length==0}}">
+    <image src="../../../images/no_coupon.png" class="cart-image" />
+    <view class="no-data-title size-26 c-999">您暂时还没有任何优惠劵哦</view>
+    <navigator url="/pages/activity/coupon_list/coupon_list" class="lookat bg-theme-1 size-26">
+        立即去领劵中心看看吧
+    </navigator>
+</view>
+<!-- 未使用 -->
+<view class='list-box pl-30 pr-30 one_name' wx:if="{{typeId==0&&coupons.length > 0}}">
+    <block wx:for="{{coupons}}" wx:key="{{index}}">
+        <navigator url="/pages/store/index/index?store_id={{item.store_id}}" class='list-one'>
+            <view class='list-one-left bg-theme-1'>
+                <view class='price-block size-60'>{{filter.toFix(item.money)}}</view>
+                <view class='size-22 price-block big-price'>
+                    满
+                    <text class='price-block '>{{filter.toFix(item.condition)}}</text>
+                    元使用
+                </view>
+            </view>
+            <view class='list-one-right p-30'>
+                <view class='list-name size-26 ellipsis-2'>{{item.limit_store}}</view>
+                <view class='list-time'>
+                    <view class='c-999 size-22'>
+                        {{item.use_start_time}} ~ {{item.use_end_time}}
+                    </view>
+                    <view class='c-theme-2 size-22'>立即使用</view>
+                </view>
+            </view>
+        </navigator>
+    </block>
+</view>
+<!-- 已使用 -->
+<block wx:if="{{typeId == 1}}">
+    <view class='list-box pl-30 pr-30 tow_name' wx:for="{{coupons}}" wx:key="{{index}}">
+        <view class='list-one'>
+            <view class='list-one-left bg-attached-1'>
+                <view class='price-block size-60'>{{filter.toFix(item.money)}}</view>
+                <view class='price-block size-22'>满 {{filter.toFix(item.condition)}} 可用</view>
+            </view>
+            <view class='list-one-right p-30'>
+                <view class='list-name size-26 ellipsis-2'>{{item.limit_store}}</view>
+                <view class='list-time'>
+                    <view class='c-999 font-siz'>{{item.use_start_time}} ~ {{item.use_end_time}}</view>
+                    <image src="../../../images/used.png" class='style-img'></image>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+
+<!-- 已过期 -->
+<block wx:if="{{typeId == 2}}">
+    <view class='list-box pl-30 pr-30 therr_name' wx:for="{{coupons}}" wx:key="{{index}}">
+        <view class='list-one'>
+            <view class='list-one-left bg-attached-1'>
+                <view class='price-block size-60'>{{filter.toFix(item.money)}}</view>
+                <view class='price-block size-22'>满 {{filter.toFix(item.condition)}} 可用</view>
+            </view>
+            <view class='list-one-right p-30'>
+                <view class='list-name size-26 ellipsis-2'>{{item.limit_store}}</view>
+                <view class='list-time'>
+                    <view class='c-999 font-siz'>{{item.use_start_time}} ~ {{item.use_end_time}}</view>
+                    <image src="../../../images/out-time.png" class='style-img'></image>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+<!-- <view class="container">
+    <view class="type-navbar nav-fixed">
+        <view class="type-box" wx:for="{{categories}}"  wx:key="index">
+            <view id="{{item.id}}" class="type-navbar-item {{typeId == item.id ? 'type-item-on' : ''}}" bindtap="changeTab">
+                {{item.name}}
+            </view>
+        </view>
+    </view>
+    <view class="coupon-list mt-80">
+        <view class="coupon-box" wx:for="{{coupons}}" wx:key="index">
+            <view class="coupon-head {{typeId!=0?'head-disable':''}}" style="border-image-source:url(../../../images/coupon_a.png)">
+                <view class="coupon-money">¥ <text class="money">{{item.money}}</text></view>
+                <view class="line">满 {{item.condition}} 元使用</view>
+                <view class="line">{{item.name}}</view>
+            </view>
+            <view class="coupon-body">
+                <view class="line">{{item.limit_store ? item.limit_store : '商城平台'}}</view>
+                <navigator class="use-btn {{typeId!=0?'btn-disable':''}}" url="{{typeId==0?'/pages/index/index/index':''}}" open-type="switchTab">{{typeId==1?'已使用':(typeId==2?'已过期':'立即使用')}}</navigator>
+            </view>
+            <view class="use-end">限{{item.deadTimeFommat}}前使用</view>
+        </view>
+    </view>
+</view> -->

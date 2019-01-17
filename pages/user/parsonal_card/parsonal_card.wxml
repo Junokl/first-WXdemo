@@ -1,0 +1,18 @@
+<view class='box'>
+  <view class="user_box">
+    <view class='user_logo'>
+      <image src='{{user.head_pic}}' class='defalut-pic img-logo'></image>
+    </view> 
+    <view class='user_name ellipsis-1'>
+      <view class='user_name_text'>{{user.nickname}}</view>
+      <view class='user_name_num'>邀请码 {{user.invitationCode}}</view>
+    </view>
+    <view class='user_qrCode'>
+      <image src='{{userCodeLink}}' class='defalut-pic img-qrCode'></image>
+    </view>
+  </view>
+  <view class='parsonal-imgBox'>
+    <image src='https://img.gzzhitu.com/picture/20190112/154728781796673.png' class='parsonal_img defalut-pic'></image>
+  </view>
+  <button class='btn-share bg-theme-1' open-type="share" bindtap='onShareAppMessage'>分享美记</button>
+</view>

@@ -1,0 +1,6 @@
+<view class="no-data">
+    <image class="cart-image"/>
+    <view class="no-data-title">请先登录, 以便操作更多功能</view>
+    <button open-type="getUserInfo" bindgetuserinfo='bindGetUserinfo' class='getuse_info'>获取用户信息</button>
+    <navigator class="similer" url="/pages/index/index/index" open-type="switchTab">返回首页</navigator> 
+</view>

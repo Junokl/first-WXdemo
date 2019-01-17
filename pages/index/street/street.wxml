@@ -1,0 +1,58 @@
+<import src="../../../utils/regions/regions.wxml" />
+<view class='list-box'>
+    <view class='list-one pl-30 pr-30' wx:for="{{stores.store_list}}" wx:key="{{index}}">
+        <view class='list-top p-30'>
+            <navigator url="/pages/store/index/index?store_id={{item.store_id}}" class='list-top-img'>
+                <image class='wh100 store_img default-pic' src='{{item.store_logo}}'></image>
+            </navigator>
+            <navigator url="/pages/store/index/index?store_id={{item.store_id}}" class='list-top-name pl-30'>
+                <view class='size-34 c-000 ellipsis-2' style="margin-bottom: 10rpx;">
+                    {{item.store_name}}
+                </view>
+                <view class='size-22 c-999'>
+                    关注数量
+                    <text class='size-22 c-theme-3 '>{{item.store_collect}}</text>
+                </view>
+            </navigator>
+            <view class="list-top-text {{item.is_collect?'is-focus':''}}" bindtap="focusStore" data-id="{{index}}">
+                {{item.is_collect? '我已关注': '关注店铺'}}
+            </view>
+        </view>
+        <view class='list-bottom'>
+            <block wx:if="{{item.cartList.length}}">
+                <navigator url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}" wx:for="{{item.cartList}}" wx:key="{{index}}" class='list-bottom-goodsList'>
+                    <view class="list-bottom-img">
+                        <image class='goods_img' src='{{item.goods_thumb}}'></image>
+                    </view>
+                    <view class='list-bottom-text'>
+                        <view class='size-24 c-333 list-bottom-goods_name ellipsis-1'>
+                            {{item.goods_name}}
+                        </view>
+                        <view class='size-26 c-theme-3' style='font-weight:900;'>
+                            ￥{{item.shop_price}}
+                        </view>
+                    </view>
+                </navigator>
+            </block>
+            <block wx:else>
+                <view class="size-32 pt-30 pb-30 c-333 flex-center" style="width:100%; padding-top: 100rpx; padding-bottom: 100rpx;">店家暂无商品</view>
+            </block>
+        </view>
+    </view>
+    <view class="new-no-data fixed" wx:if="{{!stores.store_list || stores.store_list.length == 0}}">
+        <image src="../../../images/no_store.png" style="width: 240rpx; height: 201rpx;" class="cart-image"/>
+        <view class="new-no-message size-28 c-999 mb-30 mt-30">暂时还没相关的店铺哦</view>
+        <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+    </view>
+</view>
+<!-- 类别弹窗 -->
+<view hidden="{{!showCategoryModal}}">
+    <view class="cover-layer" bindtap="closeCategoryModal"></view>
+    <view class="category-list">
+        <view class="category-item {{activeCategoryId==index?'category-item-on':''}}" data-i="{{index}}" data-scid="{{item.sc_id}}" bindtap="selectCategory" wx:for="{{stores.store_class}}" wx:key="{{index}}">
+            {{item.sc_name}}
+        </view>
+    </view>
+</view>
+<!-- 选择地址弹框 -->
+<template is="regions" data="{{regions}}" />

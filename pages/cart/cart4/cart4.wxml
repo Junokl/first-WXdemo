@@ -1,0 +1,40 @@
+<!--cart4.wxml-->
+<view class="payorder-wapper">
+    <!-- 订单信息 -->
+    <view class="payorder-header p30">
+        <view class="payorder-header-item flex-between mb-20">
+            <view class="size-26 c-333">订单编号</view>
+            <view class="size-26 c-theme-1">{{order.order_sn}}</view>
+        </view>
+        <view class="payorder-header-item flex-between">
+            <view class="size-26 c-333">订单金额</view>
+            <view class="size-26 c-theme-1">¥ {{order.order_amount}}</view>
+        </view>
+    </view>
+    <!-- 支付方式 -->
+    <view class="payorder-mode-wapper p30">
+        <view class="payorder-mode-title size-36 c-333 bold">支付方式</view>
+        <view class="payorder-mode-list">
+            <view class="payorder-mode-item flex-between" bindtap="checkPayWay">
+                <image class="payorder-mode-pic" src="../../../images/pay-wechat.png"></image>
+                <view class="payorder-mode-text flex-auto size-26 c-333">微信</view>
+                <icon type="success" size="18" color="{{useWxPay?'#ff4f70':'gray'}}" />
+            </view>
+            <!-- <view class="payorder-mode-item  flex-between" hidden="{{!isOpenBalanPay}}" bindtap="checkPayWay">
+                <image class="payorder-mode-pic" src="../../../images/pay-change.png"></image>
+                <view class="payorder-mode-text flex-auto size-26 c-333">零钱剩余<text class="c-theme-1">¥</text></view>
+                <icon type="success" size="18" color="{{useWxPay?'gray':'#ff4f70'}}" />
+            </view> -->
+        </view>
+    </view>
+    <view class="app-footer-button flex-center h-100 bg-theme-1 c-fff size-32" bindtap='payment'>支付 ¥{{order.order_amount}}</view>
+</view>
+
+<!-- <view class="pay-wapprer" hidden="{{!isPayWordShow}}">
+    <view class="pay-bg" bindtap="closePayModal"></view>
+    <view class="pay-box">
+        <view class="pay-text">请输入支付密码</view>
+        <input type="text" bindinput="bindKeyInput" focus="true" value="{{passWord}}" class="pay-input" password/>
+        <view class="pay-success" bindtap="requestBan">确认支付</view>
+    </view>
+</view> -->

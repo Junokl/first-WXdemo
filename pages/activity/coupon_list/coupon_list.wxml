@@ -1,0 +1,40 @@
+<!-- 引入保留小数点个数过滤器 -->
+<wxs module="filters" src="./coupon.wxs"></wxs>
+<!-- <wxs module="filter" src="../../../utils/filter.wxs"></wxs> -->
+<view class="container">
+  <view class="nav nav-fixed">
+    <view class="nav-item {{typeId==1?'red':''}}" bindtap="changeTab" data-id='1'>默认</view>
+    <view class="nav-item {{typeId==2?'red':''}}" bindtap="changeTab" data-id='2'>即将过期</view>
+    <view class="nav-item {{typeId==3?'red':''}}" bindtap="changeTab" data-id='3'>面值最大</view>
+  </view>
+  <!-- wx:if="{{data.coupon_list.length > 0}}" -->
+  <view class='list-box pl-30 pr-30 pt-30' wx:if="{{requestData.coupon_list.length > 0}}">
+    <view class='list-one' wx:for="{{requestData.coupon_list}}" wx:key="{{index}}">
+      <view class='img-box default-pic radius'>
+        <image class='order-img defult_pic' src='{{item.store_logo}}'></image>
+      </view>
+      <view class='text-content c-333'>
+        <view class='item-name size-26'>{{item.store_name || item.name}}</view>
+        <view class='text-price'>
+          <view class='c-theme-3 size-48 price-money'>{{filters.toFix(item.money)}}</view>
+          <view class='c-theme-2 size-22 big-price ml-20'>
+            满<text class='bit-price-style'>{{filters.toFix(item.condition)}}</text>可用
+          </view>
+        </view>
+      </view>
+      <view class='{{item.isget==1?"geting":"using"}} c-theme-3' bindtap='lingQu' data-store_id="{{item.store_id}}" data-isget="{{item.isget}}" data-index="{{index}}" data-cid="{{item.id}}">
+        <view class='text-li {{item.isget==1?"using-text":""}}'>
+          {{item.isget==1?"立即使用":"立即领取"}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 没有优惠卷 -->
+  <view class="new-no-data" wx:if="{{!requestData.coupon_list || requestData.coupon_list.length == 0}}">
+    <image src="../../../images/no_coupon.png" style="width: 229rpx; height: 201rpx;" class="cart-image" />
+    <view class="new-no-message size-28 c-999 mb-30 mt-30">暂时还没相关的优惠券哦</view>
+    <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">
+      赶快去逛逛吧
+    </navigator>
+  </view>
+</view>

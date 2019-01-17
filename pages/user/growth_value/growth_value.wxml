@@ -1,0 +1,75 @@
+<wxs src="../../../utils/filter.wxs" module="filter" />
+<view class='weui-navbar-top'>
+  <view class="weui-navbar">
+    <view wx:for="{{topBar}}" wx:key="{{index}}" class="weui-navbar__item {{currentTab==index ? 'topBar-active' : ''}}" data-idx="{{index}}" bindtap='changeTopTab'>
+      {{item.name}}
+    </view>
+  </view>
+</view>
+<!-- 分享记录 -->
+<view wx:if="{{type==0}}">
+  <view class='search-box'>
+    <view class='search-top pl-30 pr-30'>
+      <view class="c-999 size-22">总金额</view>
+      <view class='size-22'>
+        <text class="c-theme-3">{{sizePrice_num}}</text>
+        /{{bigPrice_num}}
+      </view>
+    </view>
+  </view>
+  <view class='list-box' style="margin-bottom: 120rpx;">
+    <block wx:for="{{list}}" wx:key="{{index}}">
+      <navigator url='../../goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}' class='list-one'>
+        <view class='list-left'>
+          <image src='{{item.goods_thumb}}' class='default-pic radius'></image>
+        </view>
+        <view class='list-right ellipsis-1 padding-t'>
+          <view class='goods-name size-24 c-333 '>{{item.goods_name}}</view>
+          <view class='list-right-midden'>
+            <view class='goods-time c-999 size-22'>
+              分享时间  {{filter.formatTime(item.create_time, 0)}}
+            </view>
+            <view class='text-price c-theme-3 size-24'>￥{{item.shop_price}}</view>
+          </view>
+          <view class='list-right-bottom'>
+            <view class='c-999 size-22'>
+              浏览次数
+              <text class='c-theme-3 size-22 bold'>{{item.hits}}</text>
+            </view>
+            <view class='c-999 size-24'>
+              购买次数
+              <text class='c-theme-3 size-24 bold'>{{item.buy_count}}</text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </block>
+  </view>
+  <button class="footer-box" bindtap='onShareAppMessage' open-type="share">立即分享</button>
+</view>
+<!-- 亲朋好友 -->
+<view wx:if="{{type==1}}">
+  <view class='search-box'>
+    <view class='search-top pl-30 pr-30'>
+      <view class="c-999 size-22">总邀请人数</view>
+      <view class='size-22'>
+        <text class="c-theme-3">{{sizeFriend_num}}</text>
+        /{{bigFriend_num}}
+      </view>
+    </view>
+  </view>
+  <view class='list-box' style="margin-bottom: 120rpx;">
+    <view wx:for="{{list.list}}" wx:key="{{index}}" class='list-one-2'>
+      <view class='list-left'>
+        <image src='{{item.head_pic}}' class='default-pic tow-img'></image>
+      </view>
+      <view class='list-right-2  ellipsis-1'>
+        <view class='goods-name-2 size-34'>{{item.nickname || item.mobile}}</view>
+        <view class='list-right-midden'>
+          <view class='goods-time-2 c-999 size-22'>注册时间  {{item.reg_time}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <button class="footer-box" bindtap='onShareAppMessage' open-type='share'>立即邀请</button>
+</view>

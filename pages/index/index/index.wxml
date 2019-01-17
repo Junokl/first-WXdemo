@@ -1,0 +1,142 @@
+<wxs src="../../../utils/filter.wxs" module="filter" />
+<!--index.wxml-->
+<view class="container">
+    <!--搜索栏-->
+    <view class="new-search-nav">
+        <view class="new-location">
+            <image src="../../../images/icon_dingwei.png"></image>
+            <text>广州</text>
+        </view>
+        <view class="new-search" bindtap="jumpSearch">
+            <image src="../../../images/icon_search.png"></image>
+            <text>享受美好生活</text>
+        </view>
+        <!-- <view class="new-message">
+            <image src="../../../images/icon_new_message.png" ></image>
+        </view> -->
+    </view>
+    <!--轮播图-->
+    <view class="swiper-warrper" style="margin-top: 100rpx;">
+        <swiper class="swiper_box" indicator-dots="true" vertical="" autoplay="true" interval="3000" duration="1000">
+            <block wx:for="{{homeData.banner}}" wx:key="index" >
+                <swiper-item bindtap="bannerClick" data-ids="{{index}}">
+                    <view class='ss' >
+                        <image src="{{item.ad_code}}" class="slide-image default-pic"/>
+                    </view>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    
+    
+    <view class="venues_list" style="margin-bottom: 30rpx">
+        <view class="venues_item">
+            <navigator url="/pages/index/street/street">
+                <image src="../../../images/sort/home_new_year_3.png"/>
+                <view>品牌街</view>
+            </navigator>
+        </view>
+        <view class="venues_item">
+            <navigator url="/pages/activity/group_list/group_list">
+                <image src="../../../images/sort/home_new_year_4.png"/>
+                <view>优惠促销</view>
+            </navigator>
+        </view>
+        <view class="venues_item">
+            <navigator url="/pages/team/index/index">
+                <image src="../../../images/sort/home_new_year_1.png"/>
+                <view>我要拼团</view>
+            </navigator>
+        </view>
+        <view class="venues_item">
+            <navigator url="/pages/activity/coupon_list/coupon_list">
+                <image src="../../../images/sort/home_new_year_2.png"/>
+                <view>领券中心</view>
+            </navigator>
+        </view>
+    </view>
+
+    <!-- <view class="newyear-activity-box p30 flex-between" style="margin-bottom: 50rpx;">
+        <navigator url="/pages/activity/goods_list/goods_list?type=1" class="newyear-activity-item" data-index="0">
+            <image src="../../../images/activity_1.png"></image>
+        </navigator>
+        <navigator url="/pages/activity/goods_list/goods_list?type=2" class="newyear-activity-item" data-index="1">
+            <image src="../../../images/activity_2.png"></image>
+        </navigator>
+    </view> -->
+
+    <view class="new-ad-wapper p30" style="margin-bottom: 20rpx;" wx:if="{{homeData.ad_special && homeData.ad_special.length}}">
+        <view class="new-ad-item" wx:for="{{homeData.ad_special}}" wx:if="{{index<3}}" wx:key="index" data-index="{{index}}" bindtap="adHandler">
+            <image class="radius" src="{{item.img_url}}"></image>
+        </view>
+    </view>
+
+    <view class="new-nianhuo-banner bg-fff mb-30" bindtap="jumpNianView">
+        <image src="https://img.gzzhitu.com/picture/20190116/154758000396937.png" ></image>
+    </view>
+
+    <!--秒杀-->
+    <view wx:if="{{sale.good}}" class="seckill" style="margin-bottom: 50rpx;">
+        <navigator class="seckill-time" url="/pages/activity/seckill_list/seckill_list">
+            <view class="classname">
+                <text class="size-36 c-333 bold" style="margin-right: 10rpx;" >美记秒杀</text>
+                <!-- <image src="../../../images/new_title_1.png" class="seckill-pic"></image> -->
+                <text class="sk-time bg-theme-1">{{sale.countTime.hour}}</text>
+                <text class="sk-time bg-theme-1">{{sale.countTime.minute}}</text>
+                <text class="sk-time bg-theme-1">{{sale.countTime.second}}</text>
+            </view>
+            <image class="common-item-arrow" style="width: 20rpx; height:20rpx;" src="../../../images/icon-arrowdown.png"></image>
+        </navigator>
+        <view class="seckill-list">
+            <block wx:for="{{saleGoods}}" wx:key="index">
+                <navigator url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}&item_id={{item.item_id}}">
+                    <image class="default-pic radius" src="{{item.goods_thumb}}"></image>
+                    <!-- <view class="ellipsis-1">{{item.goods_name}}</view> -->
+                    <view class="co-red seckill-price">¥{{item.price}}</view>
+                    <view class="size-20 c-333 through">¥{{item.market_price}}</view>
+                </navigator>
+            </block>
+        </view>
+    </view>
+
+    <view class="app-product-list">
+        <view class="app-product-header">热门推荐</view>
+        <!-- <view class="newyear-goods-list mt-20">
+            <block wx:for="{{recommend}}" wx:key="index">
+                <navigator class="newyear-goods-item" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <view class="newyear-goods-pic">
+                        <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                    </view>
+                    <view class="newyear-goods-message">
+                        <view class="newyear-goods-title ellipsis-2 size-24">{{item.goods_name}}</view>
+                        <view class="newyear-goods-info">
+                            <view class="size-24 c-theme-1 mr-30">¥<text class="size-34">{{item.shop_price}}</text></view>
+                            <view class="size-20 c-999 through">¥{{item.market_price}}</view>
+                        </view>
+                    </view>
+                </navigator>
+            </block>
+        </view> -->
+        <block wx:for="{{recommend}}" wx:key="index">
+            <view class="app-product-item">
+                <navigator class="app-product-pic mr-30" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                </navigator>
+                <navigator class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <view class="app-product-title ellipsis-2" style="magin-bottom: 30rpx; height: 72rpx;">{{item.goods_name}}</view>
+                    <view class="app-product-price flex-between">
+                        <view class="flex-auto"><text class="app-product-prefix">¥</text>{{item.shop_price}}</view>
+                        <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 2 && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate)}}</text>
+                        <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 3 && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate)}}</text>
+                    </view>
+                    <view class="app-product-message flex-center size-22 c-999">
+                        <view class="app-product-original flex-auto through">¥{{item.market_price}}</view>
+                        <!-- <view class="app-product-sale">销售量：{{item.sales_sum}}</view> -->
+                    </view>
+                </navigator>
+            </view>
+        </block>
+    </view>
+</view>
+<!-- 授权弹框 -->
+<button open-type="getUserInfo" class="wx-auth-warrper" hidden="{{!isAuthorize}}"  bindgetuserinfo="bindGetUserInfo"></button>

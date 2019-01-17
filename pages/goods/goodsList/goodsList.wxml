@@ -1,0 +1,92 @@
+<view class="container">
+    <view class="nav nav-fixed">
+        <view class="nav-item" bindtap="changeTab" data-href="{{requestData.orderby_default}}">综合</view>
+        <view class="nav-item" bindtap="changeTab" data-href='{{requestData.orderby_sales_sum}}'>销量</view>
+        <view class="nav-item" bindtap="changeTab" data-href='{{requestData.orderby_price}}'>
+            价格
+            <view class="ico-dir {{requestData.sort!='shop_price'?'':(requestData.sort_asc=='asc'?'ico-dir-up':'ico-dir-dn')}}" style="background-image: url('https://img.gzzhitu.com/picture/20190116/154764280453816.png');"></view>
+        </view>
+        <view class="nav-item" bindtap="changeTab" bindtap="openFilterModal">筛选<view class="ico-filter"><image class="wh100" src="../../../images/xx.png"></image></view></view>
+        <view class="nav-item search" url="/pages/goods/search/search" redirect><image class="wh100 search-img" src="../../../images/search.png"></image></view>
+    </view>
+
+    <!-- <view class="choice_list mt-90">
+        <block wx:for="{{requestData.goods_list}}" wx:key="{{index}}">
+            <navigator class="choice_item" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                <view class="img-wrap">
+                    <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                </view>
+                <view class="item-cont">
+                    <view class="title">{{item.goods_name}}</view>
+                    <view class="price">¥{{item.shop_price}}</view>
+                    <view class="comment">评论{{item.comment_count}} 销量{{item.sales_sum}}</view>
+                </view>
+            </navigator>
+        </block>
+    </view> -->
+
+    <view class="app-product-list mt-90">
+        <block wx:for="{{requestData.goods_list}}" wx:key="index">
+            <view class="app-product-item">
+                <navigator class="app-product-pic" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <image class="default-pic" src="{{item.goods_thumb}}"></image>
+                </navigator>
+                <navigator class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{item.goods_id}}">
+                    <view class="app-product-title ellipsis-2" style="height: 72rpx;">{{item.goods_name}}</view>
+                    <view class="app-product-price flex-between">
+                        <view class="flex-auto"><text class="app-product-prefix">¥</text>{{item.shop_price}}</view>
+                        <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 2 && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate, item.vip_rate)}}</text>
+                        <text class="app-product-share c-theme-1 size-22" wx:if="{{userInfo.level == 3 && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0.00' && filter.toKeepTwoDot(item.distribut, item.distribute_rate) != '0' }}">预估佣金 ¥{{filter.toKeepTwoDot(item.distribut, item.distribute_rate)}}</text>
+                    </view>
+                    <view class="app-product-message flex-center size-22 c-999">
+                        <view class="app-product-original flex-auto through">¥{{item.market_price}}</view>
+                        <!-- <view class="app-product-sale">销售量：{{item.sales_sum}}</view> -->
+                    </view>
+                </navigator>
+            </view>
+        </block>
+    </view>
+    
+    <view class="no-data mt-90" wx:if="{{!requestData.goods_list || requestData.goods_list.length == 0}}">
+        <image src="../../../images/no_cart.png" class="cart-image"/>
+        <view class="no-data-title">没有相关的数据</view>
+        <navigator url="/pages/index/index/index" class="lookat" open-type="switchTab"> 去逛逛 </navigator>
+    </view>
+</view>
+
+<!-- 筛选弹框  -->
+<view hidden="{{!openFilterModal}}">
+    <view class="cover-layer" bindtap="closeFilterModal"></view>
+    <view class="filter-modal">
+        <icon type="cancel" color="gray" size="22" class="modal-close" bindtap="closeFilterModal"/>
+        <button class="viewall-btn" bindtap="restoreData">显示全部分类</button>
+        <view class="filter-box" wx:for="{{requestData.filter_spec}}" wx:key="{{index}}">
+            <view class="filter-name">{{item.name}}</view>
+            <view class="filter-items">
+                <view class="filter-item" wx:for="{{item.item}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+                {{item.name}}</view>
+            </view>
+        </view>
+        <view class="filter-box" wx:for="{{requestData.filter_attr}}" wx:key="{{index}}">
+            <view class="filter-name">{{item.name}}</view>
+            <view class="filter-items">
+                <view class="filter-item" wx:for="{{item.item}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+                {{item.name}}</view>
+            </view>
+        </view>
+        <view class="filter-box" wx:if="{{requestData.filter_brand.length>0}}">
+            <view class="filter-name">相关品牌</view>
+            <view class="filter-items">
+                <view class="filter-item" wx:for="{{requestData.filter_brand}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+                {{item.name}}</view>
+            </view>
+        </view>
+        <view class="filter-box" wx:if="{{requestData.filter_price.length>0}}">
+            <view class="filter-name">价格区间</view>
+            <view class="filter-items">
+                <view class="filter-item" wx:for="{{requestData.filter_price}}" wx:key="{{index}}" data-href="{{item.href}}" bindtap="filterGoods">
+                {{item.name}}</view>
+            </view>
+        </view>
+    </view>
+</view>

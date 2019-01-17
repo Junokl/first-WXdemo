@@ -1,0 +1,55 @@
+<view class="container">
+    <view class="type-navbar nav-fixed">
+        <view class="type-box" wx:for="{{categories}}" wx:key="{{index}}">
+            <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="changeTab">
+                {{item.name}}
+            </view>
+        </view>
+    </view>
+
+    <view class="goods-container mt-80">
+        <view class="goods-box" wx:for="{{orderList}}" wx:key="{{index}}" data-id="{{item.order_id}}">
+            <view class="goods-title">
+                <view class="store-name">{{item.store.store_name}}</view>
+                <view class="pay-status">{{item.order_status_detail}}</view>
+            </view>
+            <view class="order-number">订单编号:{{item.order_sn}}</view>
+            <block wx:for="{{item.order_goods}}" wx:for-item="goods" wx:key="{{index}}">
+                <view class="goods-cont">
+                    <navigator class="img-box" url='/pages/user/order_detail/order_detail?order_id={{goods.order_id}}'>
+                        <image class="wh100 default-pic radius" src="{{url}}/api/goods/goodsThumImages?goods_id={{goods.goods_id}}&width=200&height=200"></image>
+                        <!-- <image class="wh100 default-pic" src="{{goods.goods_thumb}}"></image> -->
+                    </navigator>
+                    <navigator class="goods-mes" url='/pages/user/order_detail/order_detail?order_id={{goods.order_id}}'>
+                        <view class="goods-name ellipsis-2">{{goods.goods_name}}</view>
+                        <view class="goods-alt" hidden="{{!goods.spec_key_name}}">{{goods.spec_key_name}}</view>
+                        <view class='price-box .pt-30'>
+                          <view class="goods-price">¥ {{goods.member_goods_price}}</view>
+                          <view class="goods-num"> X {{goods.goods_num}}</view>
+                        </view>
+                    </navigator>
+                    <view hidden="{{!(item.order_button.return_btn==1&&goods.is_send==1)}}" class="return-btn" data-recid="{{goods.rec_id}}" bindtap="checkReturnGoodsStatus">申请售后</view>
+                </view>
+            </block>
+            <view class="goods-tips">
+                <view class="order-total">
+                    <view class='goods-sum'>共计:</view>
+                    <view class="goods-total">¥{{item.goods_price}}</view>
+                </view>
+                <view class="check-btn">
+                    <view hidden="{{!(item.order_button.pay_btn==1)}}" class="order-btn order-btn-pay" bindtap="jumpToCart4" data-idx="{{index}}">立即付款</view>
+                    <view hidden="{{!(item.order_button.cancel_btn==1&&item.pay_status==0)}}" class="order-btn cancel" bindtap="cancelOrder" data-id='{{item.order_id}}'>取消订单</view>
+                    <navigator hidden="{{!(item.order_button.cancel_btn==1&&item.pay_status==1)}}" class="order-btn cancel" url="/pages/order/refund_order/refund_order?consignee={{item.consignee}}&mobile={{item.mobile}}&orderId={{item.order_id}}">取消订单</navigator>
+                    <view hidden="{{!(item.order_button.receive_btn==1)}}" class="order-btn order-btn-pay" bindtap="confirmOrder" data-id='{{item.order_id}}'>确认收货</view>
+                    <navigator hidden="{{!(item.order_button.comment_btn==1)}}" class="order-btn  cancel" url="/pages/user/comment/comment?status=0" redirect>评价</navigator>
+                    <navigator hidden="{{!(item.order_button.shipping_btn==1)}}" class="order-btn lookingfor" url="/pages/user/express/express?order_id={{item.order_id}}">查看物流</navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="new-no-data fixed" style="top: 80rpx;" wx:if="{{!orderList || orderList.length == 0}}">
+        <image src="../../../images/order-nullstate.png" style="width: 229rpx; height: 189rpx;" class="cart-image"/>
+        <view class="new-no-message size-28 c-999 mb-30 mt-30">您暂时还没有订单哦</view>
+        <navigator url="/pages/index/index/index" class="new-no-button bg-theme-1 size-26" open-type="switchTab">赶快去逛逛吧</navigator>
+    </view>
+</view>

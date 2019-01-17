@@ -1,0 +1,223 @@
+<import src="../../../utils/wxParse/wxParse.wxml"/>
+<view class="container">
+    <view class="type-navbar nav-fixed">
+        <view class="type-box" wx:for="{{categories}}" wx:key="index">
+            <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
+                {{item.name}}
+            </view>
+        </view>
+    </view>
+    <view class="goods-detail mt-80">
+        <!-- 商品首页 -->
+        <view class="goods-info" hidden="{{activeCategoryId==0?false:true}}">
+            <swiper class="swiper_box" indicator-dots="{{true}}" vertical="{{false}}"
+                    autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
+                <block wx:for="{{goods.goods_images}}" wx:key="index">
+                    <swiper-item>
+                        <image class="wh100 default-pic" src="{{item.image_url}}" />
+                    </swiper-item>
+                </block>
+            </swiper>
+            <!--  -->
+            <!-- <view class="pt-goods">
+                <view class="pt-goods-name ellipsis-1">{{goods.goods_name}}</view>
+                <view class="pt-tips">
+                    <view class="co-red">¥{{select.teamPrice ? select.teamPrice : select.price}}</view>
+                    <view wx:if="{{select.prom_id > 0}}" class="pt-btn bg-theme-1">{{select.statusDesc}}</view>
+                </view>
+                <view class="pt-price">市场价格 :  <text>¥{{goods.market_price}}</text></view>
+                <view class="pt-des">{{select.shareDesc}}</view>
+            </view> -->
+
+            <view class="new-group-box p30 mb-20 bg-fff">
+                <view class="new-goods-warrper">
+                    <view class="flex-center" style="margin-bottom: 15rpx">
+                        <view class="flex-auto new-flex">
+                            <text class="group-title">拼团价</text>
+                            <text class="size-24 c-theme-1">¥<text style="font-size:50rpx;">{{select.teamPrice ? select.teamPrice : select.price}}</text></text>
+                            <text class="size-24 c-999 ml-20 through">¥{{goods.market_price}}</text>
+                        </view>
+                        <view class="new-colection" bindtap="collectGoods">
+                            <image hidden="{{result.collect}}" src="../../../images/shoucang_2.png" ></image>
+                            <image hidden="{{!result.collect}}" src="../../../images/shoucang_1.png" ></image>
+                        </view>
+                    </view>
+                    <view class="goods-name ellipsis-2 flex-auto">{{goods.goods_name}}</view>
+                </view>
+
+                <view class="new-goods-sale flex-between">
+                    <view class="size-24 c-999">销量 <text class="c-theme-1">{{goods.sales_sum}} 件</text></view>
+                    <view class="size-24 c-999">好评率 <text class="c-theme-1">{{goods.comment_statistics.high_rate || 99}} %</text></view>
+                </view>
+
+                <view class="new-guarantee">
+                    <view wx:if="{{store.certified}}" class="new-guarantee-item flex-center">
+                        <icon type="success" size="10" color="#FF4F7D" />
+                        <text class="size-20 c-333">正品保障</text>
+                    </view>
+                    <view wx:if="{store.qitian}}" class="new-guarantee-item flex-center">
+                        <icon type="success" size="10" color="#FF4F7D" />
+                        <text class="size-20 c-333">七天退货</text>
+                    </view>
+                    <view wx:if="{{store.two_hour}}" class="new-guarantee-item flex-center">
+                        <icon type="success" size="10" color="#FF4F7D" />
+                        <text class="size-20 c-333">两小时发货</text>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 参团 -->
+            <view class="new-group-warrper mb-20 p30" wx:if="{{teamResult.teamFounds.length}}">
+                <view class="new-group-title size-26 c-999">我想直接参与团购</view>
+                <view class="new-group-list">
+                    <view class="new-group-item" wx:for="{{teamResult.teamFounds}}" wx:key="{{index}}">
+                        <view class="new-group-pic">
+                            <image src="{{item.head_pic}}" class="default-pic" ></image>
+                        </view>
+                        <view class="new-group-username size-34 c-333  ellipsis-1 flex-auto">{{item.nickname ? item.nickname:defaultAvatar}}</view>
+                        <view  class="new-group-time">
+                            <view class="size-26 c-999">还差<text class="c-theme-1">{{item.surplus}}</text>人成团</view>
+                            <view class="size-26 c-999">剩余<text class="c-theme-1">{{item.remainTime.hour}}:{{item.remainTime.minute}}:{{item.remainTime.second}}</text></view>
+                        </view>
+                        <view class="new-group-join" catchtap="offered" data-foundId="{{item.found_id}}">去参团</view>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 新店铺信息 -->
+            <view class="new-store-warrper" style="marign-top: 20rpx;">
+                <navigator url="/pages/store/index/index?store_id={{store.store_id}}" class="new-store-header">
+                    <view class="new-store-logo">
+                        <image class="default-pic" src="{{store.store_avatar?store.store_avatar:store.store_logo}}"> </image>
+                    </view>
+                    <view class="new-store-name size-34 ellipsis-2">{{store.store_name}}</view>
+                    <view class="new-store-mind ml-30 size-22 c-333" data-storeid="{{store.store_id}}" catchtap="focusStore">
+                        {{store.is_collect == 1?'取消关注':'关注店铺'}}
+                    </view>
+                </navigator>
+                <view class="new-store-concat flex-center">
+                    <button wx:if="{{imChoose==1}}" open-type="contact" class='size-26 c-666 new-store-item flex-auto'  session-from="wechat|{{userInfo.user_id}}|{{userInfo.nickname}}|{{userInfo.head_pic}}|{{store.store_id}}">
+                        联系客服
+                    </button>
+                    <view wx:elif="{{imChoose==0}}"  class='size-26 c-666 new-store-item flex-auto' bindtap='contactService'>
+                        联系客服
+                    </view>
+                    <view wx:else  class='size-26 c-666 new-store-item flex-auto'>联系客服</view>
+                    <navigator class="size-26 c-theme-1 new-store-item flex-auto" url="/pages/store/index/index?store_id={{store.store_id}}">进入店铺</navigator>
+                </view>
+            </view>
+
+            <view class="pt-rule" style="margin-bottom: 20rpx;">
+                <view class="pt-rule-name">拼团规则</view>
+                <view class="pt-rule-list">
+                    <view>
+                        <view class="pt-rule-num">1</view>
+                        <view class="pt-rule-title size-26 c-999">选择商品</view>
+                    </view>
+                    <view>
+                        <view class="pt-rule-num">2</view>
+                        <view class="pt-rule-title size-26 c-999">开团/参团</view>
+                    </view>
+                    <view>
+                        <view class="pt-rule-num">3</view>
+                        <view class="pt-rule-title size-26 c-999">邀请好友</view>
+                    </view>
+                    <view>
+                        <view class="pt-rule-num">4</view>
+                        <view class="pt-rule-title size-26 c-999">人满成团</view>
+                    </view>
+                </view>
+                <view class="pt-rule-wapper">
+                    <view class="pt-rule-cont radius">
+                        <view>1.开团：在商城内选择喜欢的商品，点击“去开团”，付款成功后即为开团成功；</view>
+                        <view>2.参团：进入朋友分享的页面，点击“立即参团”，付款后即为参团成功，若多人同时支付，按先支付成功的用户获得参团资格；</view>
+                        <view>3.成团：在开团或参团之后,可以点击“分享出去”，在有效时间凑齐成团人数即拼团成功；</view>
+                        <view>4.组团失败：在有效时间内未凑齐人数，即为组团失败，此时商城会将原款分别退回；</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- 商品详情 -->
+        <view class="goods-norms">
+            <view class="wxParse">
+                <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 返回顶部按钮  -->
+<view class="toTop" bindtap="doScrollTop" wx:if="{{supportPageScroll}}">
+    <image class="wh100" src="../../../images/topup.png"></image>
+</view>
+<!-- 购买栏  -->
+<view class="new-footer-warrper">
+    <navigator class='btn-opeation' open-type="switchTab" url="/pages/index/index/index">
+        <image src="../../../images/nav/home1.png"></image>
+        <view class="text">首页</view>
+    </navigator>
+    <view class="btn-wapprer">
+        <view class="btn size-24" bindtap="buyNormal">
+            单独购买
+            <text>¥{{select.price}}</text>
+        </view>
+        <view class="btn size-24" bindtap="openSpecModel">
+            <!-- {{select.needer ? select.needer : team.needer}}人团 -->
+            拼团购买
+            <text>¥{{select.teamPrice ? select.teamPrice : team[0].team_price}}</text>
+        </view>
+    </view>
+</view>
+
+<!-- 规格弹框  -->
+<view hidden="{{!openSpecModal}}">
+    <view class="cover-layer" bindtap="closeSpecModal"></view>
+    <view class="spec-model">
+        <icon type="cancel" color="gray" size="22" class="modal-close" bindtap="closeSpecModal"/>
+        <!-- <view class="spec-goods">
+            <image class="wh100 spec-img default-pic" src="{{goods.original_img}}"></image>
+            <view class="spec-goods-info">
+                <view class="spec-goods-name">{{goods.goods_name}}</view>
+                <view wx:if="{{select.prom_id > 0}}" class="spec-goods-price">¥ {{select.teamPrice}}({{select.needer}}人团)</view>
+                <view wx:else class="spec-goods-price">¥ {{select.price}}</view>
+                <view class="spec-goods-stock">剩余库存：{{select.stock}}</view>
+            </view>
+        </view> -->
+
+        <view class="spec-goods">
+            <image class="wh100 spec-img default-pic" src="{{goods.original_img}}"></image>
+            <view class="spec-goods-info">
+                <!-- <view class="spec-goods-name">{{data.goods.goods_name}}</view> -->
+                <view wx:if="{{select.prom_id > 0}}" class="spec-goods-price mb-30">¥ {{select.teamPrice}}</view>
+                <view wx:else class="spec-goods-price mb-30">¥ {{select.price}}</view>
+                <block wx:if="{{result.spec_goods_price.length !=0}}">
+                    <block wx:if="{{select.specName == undefined}}">
+                        <view class="spec-goods-stock">剩余库存：{{select.stock}}</view>
+                    </block>
+                    <block wx:else>
+                        <view class="size-26 c-333" hidden="{{select.specName}}">请选择各个选项</view>
+                        <view class="size-26 c-333" hidden="{{!select.specName}}">已选 <text class="c-theme-1">{{select.specName}}</text></view>
+                    </block>
+                </block>
+                <view wx:else class="spec-goods-stock">剩余库存：{{select.stock}}</view>
+            </view>
+        </view>
+
+        <view class="new-spec-count flex-between">
+            <view class="new-spec-title size-26 c-666">商品数量</view>
+            <view class="count">
+                <view class="sub" bindtap="subCartNum">-</view>
+                <input type="number" class="size-26" value="{{goodsInputNum}}" bindblur="inputCartNum"/>
+                <view class="add" bindtap="addCartNum">+</view>
+            </view>
+        </view>
+        <block wx:for="{{result.team.goods.spec}}" wx:key="{{index}}" wx:for-index="listIdx">
+            <view class="spec-name">{{item.spec_name || item.name}}</view>
+            <view class="spec-wrap">
+                <view wx:for="{{item.spec_item}}" wx:for-item='spec' wx:key="{{index}}" class="spec-btn {{item.selectItemId==spec.id?'spec-btn-click':''}}" bindtap="selectSpec" data-listidx="{{listIdx}}" data-itemid="{{spec.id}}">{{spec.item}}</view>
+            </view>
+        </block>
+        <view class="spec-cart-btn {{select.prom_id<=0||select.stock<=0 ? 'spec-cart-disable':''}}" catchtap="buyNow">发起拼团</view>
+    </view>
+</view>
+
+<button class="new-auth-warrper" hidden="{{!isAuthPhoneShow}}" open-type="getPhoneNumber" bindgetphonenumber="getAuthPhoneHandler"></button>

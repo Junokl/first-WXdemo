@@ -1,0 +1,120 @@
+<!--team_confirm.wxml-->
+<form bindsubmit="submitForm">
+<view class="container">
+    <view class="new-cart2-address bg-fff mb-20"  hidden="{{!address}}" bindtap="enterAddressPage">
+        <view class="new-cart2-address-box flex-between pt-20 pb-20 p30">
+            <view class="flex-auto">
+                <view class="new-cart2-address-title size-30 mb-20">
+                    <view class="new-cart2-address-name">{{address.consignee}}</view>
+                    <view class="new-cart2-address-phone ml-30">{{address.mobile}}</view>
+                </view>
+                <view class="new-cart2-address-message">
+                    <image src="../../../images/icon_location.png" />
+                    <view class="ml-20 size-26 c-999 ellipsis-1">{{address.total_address}}</view>
+                </view>
+            </view>
+            <image class="new-cart2-address-arrow" src="../../../images/icon-arrowdown.png"></image>
+        </view>
+        <image class="new-cart2-address-line" src="../../../images/tt.png"></image>
+    </view>
+    <!-- 商品列表 -->
+    <view class="order-meg">
+        <view class="store-list">
+            <view class="app-store-box p30">
+                <view class="app-store-title">
+                    <image src="../../../images/carnew.png"></image>
+                    <view class="size-26 c-999 ml-20">{{store.store_name}}</view>
+                </view>
+            </view>
+            <view class="app-product-list">
+                <view class="app-product-item">
+                    <view class="app-product-pic mr-30"  url="/pages/goods/goodsInfo/goodsInfo?goods_id={{good.goods_id}}">
+                        <image class="default-pic" src="{{url}}/api/goods/goodsThumImages?goods_id={{goods.goods_id}}&width=200&height=200"></image>
+                    </view>
+                    <view class="app-product-info" url="/pages/goods/goodsInfo/goodsInfo?goods_id={{goods.goods_id}}">
+                        <view class="app-product-title ellipsis-1 c-333" style="font-size:26rpx;">{{goods.goods_name}}</view>
+                        <view class="app-product-spec ellipsis-1 size-20 c-999">{{goods.spec_key_name}}</view>
+                        <view class="app-product-price flex-between">
+                            <view class="size-24 c-theme-1">¥<text class="size-36">{{goods.member_goods_price}}</text></view>
+                            <view class="size-24 c-333">x{{goods.goods_num}}</view>
+                        </view>
+                    </view>
+                    <!-- <view wx:if="{{!optionOrderPay}}" class="order-num">
+                        <view class="co-red">¥{{goods.member_goods_price}}</view>
+                        <view class="goods-num">
+                            <view bindtap="reduce">-</view>
+                            <input type="number" value="{{goodsInputNum}}" bindblur="inputNum"/>
+                            <view bindtap="add">+</view>
+                        </view>
+                    </view> -->
+                </view>
+            </view>
+            <view class="common-list">
+                <view class="common-item bt-1" bindtap="useCoupon" data-idx='{{index}}'>
+                    <view class="common-item-title">优惠券</view>
+                    <!-- {{item.useCouponListId?item.useCouponName:'未使用'}} -->
+                    <view class="common-item-mess size-26 c-theme-1">{{coupons ? coupons.length : 0}}张可用</view>
+                    <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+                </view>
+                <view class="common-item flex-between" style="border: none">
+                    <view class="common-item-title">备注：</view>
+                    <textarea name="user_note" style="height: 30rpx; text-align: right; width: 100%;" class="size-26 c-333 flex-auto ml-20" maxlength="30" placeholder="请输入需要备注的内容" bindinput="keyUpChangeNum"/>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 使用其他支付 -->
+    <!-- <view class="set-mes">
+        <view class="use-item">
+            <view>使用余额 : </view>
+            <input type="digit" name="user_money" maxlength="20" placeholder="可用余额:{{userInfo.user_money}}" bindblur="keyUpChangePay1"/>
+            <button class="use-btn" form-type="submit">使用</button>
+        </view>
+        <view class="use-item">
+            <view>使用积分 : </view>
+            <input type="number" name="pay_points" maxlength="20" placeholder="可用积分为:{{userInfo.pay_points}}" bindblur="keyUpChangePay2"/>
+            <button class="use-btn" form-type="submit">使用</button>
+        </view>
+        <view class="use-item" style="display:{{payWithUserMoney && payWithPoints ? 'none':'flex'}}">
+            <view>支付密码 : </view>
+            <input type="text" name="paypwd" password placeholder="请输入密码" maxlength="20"/>
+        </view>
+    </view> -->
+    <!-- 价格栏 -->
+    <view class="new-orderpay-message pt-20 pb-20 p30 bg-fff" style="margin-bottom: 120rpx;">
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">订单号</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{optionOrderSn}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">商品总价</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{order.goods_price}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">配送费用</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{order.shipping_price}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">订单总价</view>
+            <view class="new-orderpay-count c-theme-1">¥ {{order.total_amount}}</view>
+        </view>
+        <view class="new-orderpay-item flex-between size-26">
+            <view class="new-orderpay-title c-999">优惠活动</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{order.coupon_price}}</view>
+        </view>
+        <!-- <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">使用余额</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{order.user_money}}</view>
+        </view>
+        <view class="new-orderpay-item mb-20 flex-between size-26">
+            <view class="new-orderpay-title c-999">使用积分</view>
+            <view class="new-orderpay-count c-theme-1">- ¥ {{order.integral_money}}</view>
+        </view> -->
+    </view>
+</view>
+<view class="app-footer-button h-100 flex-center bg-fff">
+    <view class="flex-auto p30 size-24 c-theme-1">¥ <text class="size-44">{{order.order_amount}}</text></view>
+    <button form-type="submit" class="c-fff size-34 bg-theme-1 app-footer-submit h-100" id='submitOrder'>提交订单</button>
+</view>
+
+</form>

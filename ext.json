@@ -1,0 +1,10 @@
+{
+    "extEnable": false,
+    "extAppid": "wx07b5ff20d9d175d1",
+    "ext": {
+        "store_name": "美记生活",
+        "store_logo": "../../../images/logo.png",
+        "request_url": "https://beta.meijilive.com/index.php",
+        "request_urls": "https://api.meijilive.com/index.php"
+    }
+}

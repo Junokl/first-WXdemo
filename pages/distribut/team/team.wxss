@@ -1,0 +1,138 @@
+page{
+    font-size: 28rpx;
+    width:100%;
+    height:100%;
+    background:#fff;
+}
+.weui-navbar-top{
+  display: flex;
+  width:100%;
+  flex-direction: column;
+  background:#fff;
+  position: fixed;
+  top:0;
+  left:0;
+}
+.weui-navbar{
+  width: 100%;
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  margin: 30rpx auto;
+}
+.weui-navbar__item{
+  color:#999999;
+  height:100%;
+  font-size: 30rpx;
+  display: block;
+  box-sizing: border-box;
+}
+.weui-navbar__item + .weui-navbar__item {
+  margin-left: 30rpx;
+}
+.topBar-active{
+  color: #333;
+  border-bottom:8rpx solid #FF4F7D;
+  font-weight: 900;
+  box-sizing: border-box;
+  font-size: 30rpx;
+}
+.list-box{
+  width:100%;
+  /* background:#fff; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top:103rpx;
+  padding:30rpx;
+  box-sizing: border-box;
+}
+.list-one{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+}
+.default-pic{
+  width:100rpx;
+  height:100rpx;
+  display: block;
+  border-radius: 50%;
+}
+.list-right{
+  flex: 1;
+  height:100%;
+  padding:30rpx;
+  box-sizing:border-box;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  flex-direction: column;
+}
+.text-ziti{
+  color:#999;
+  font-size: 26rpx;
+  line-height: 36rpx;
+}
+.text-num{
+  color:#333;
+  font-size: 26rpx;
+  line-height: 36rpx;
+}
+.cart-image{
+  width:200rpx !important;
+  height:187rpx !important;
+  margin-bottom:27rpx !important;
+}
+.no-data-title{
+  height:25rpx;
+  font-size:26rpx !important;
+  font-family:PingFang-SC-Regular;
+  font-weight:400;
+  color:rgba(153,153,153,1);
+}
+.lookat{
+  color:#fff;
+  /* width:300rpx;
+  height:76rpx; */
+  text-align: center;
+  /* line-height: 76rpx; */
+  border-radius: 38rpx;
+  background:#FF4F7D !important;
+}
+.no-data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.mt-0{
+  margin-top:0 !important;
+}
+
+.list-left{
+  position: relative;
+
+}
+.img-vip{
+  position: absolute;
+  width:60rpx;
+  height:30rpx;
+  border-radius: 15rpx;
+  background:#7367F0;
+  bottom:0;
+  right:0;
+
+}
+
+
+
+
+
+
+
+
+
+

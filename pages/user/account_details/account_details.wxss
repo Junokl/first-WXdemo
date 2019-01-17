@@ -1,0 +1,81 @@
+/* pages/user/account_details/account_details.wxss */
+page {
+  background-color: #fff;
+}
+
+.account-header {
+  position: relative;
+  height: 340rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.account-header-btn {
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+}
+.account-header-btn.navigator-hover {
+  background: none;
+}
+.account-header-title {
+  padding-top: 90rpx;
+}
+.account-header-money {
+  font-size: 100rpx;
+}
+.account-box {
+  padding: 30rpx;
+  background-color: #fff;
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  top: -30rpx;
+}
+.account-details-item {
+  background-color: #f2f2f2;
+  padding: 30rpx;
+  overflow: hidden;
+}
+.account-details-header {
+  height: 36rpx;
+}
+.account-flex-title {
+  margin-bottom: 15rpx;
+}
+.wx-account-box {
+  width: 600rpx;
+  overflow: hidden;
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1007;
+}
+.account-question-title {
+  position: absolute;
+  width: 600rpx;
+  text-align: center;
+  line-height: 100rpx;
+  height: 100rpx;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.account-question-header {
+  width: 600rpx;
+  height: 100rpx;
+}
+.account-question-header image {
+  width: 600rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.account-question-body {
+  padding: 50rpx;
+}

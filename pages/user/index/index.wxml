@@ -1,0 +1,110 @@
+<!-- index.wxml -->
+<view class="container">
+    <view class="new-userinfo-bg"></view>
+    <view class="new-userinfo-warrrper">
+        <view class="p30">
+            <view class="new-header-btnbox mb-30 p30 flex-between">
+                <navigator class="new-header-btn" url="/pages/user/message_notice/message_notice">
+                    <image src="../../../images/user_icon_message.png"></image>
+                </navigator>
+                <navigator class="new-header-btn" url="/pages/user/userinfo/userinfo">
+                    <image src="../../../images/user_icon_setinfo.png"></image>
+                </navigator>
+            </view>
+            <view class="new-header-message bg-fff">
+                <view class="new-header-user mb-30 flex-center">
+                    <image class="wh-100 radius-50 default-pic mr-30" src="{{userInfo.head_pic || userInfo.avatarUrl}}"></image>
+                    <view class="new-header-namebox">
+                        <view class="new-header-name ellipsis-1 size-34 c-000">
+                            {{userInfo.nickname || userInfo.nickName}}
+                        </view>
+                        <view class="new-header-codebox" wx:if="{{userInfo.invitationCode}}">
+                            <text class="new-header-code size-22 c-theme-2">邀请码 {{userInfo.invitationCode}}</text>
+                            <text class="new-header-copy size-22 c-theme-2" data-code="{{userInfo.invitationCode}}" bindtap="copyCodeHandler">复制</text>
+                        </view>
+                    </view>
+                    <!-- <image class="new-header-qrcode" src="../../../images/user_qrcode.png"></image> -->
+                    <view class="new-header-level size-26 c-fff" wx:if="{{userInfo.level == 1}}">
+                        <text class="new-header-text size-26 c-fff">{{userInfo.level_name}}</text>
+                        <image src="../../../images/user_icon_vip1.png"></image>
+                    </view>
+                    <view class="new-header-level size-26 c-fff" wx:elif="{{userInfo.level == 2}}">
+                        <text class="new-header-text size-26 c-fff" style="padding-right: {{userInfo.level_name.length == 3? '18rpx': '30rpx'}};">{{userInfo.level_name}}</text>
+                        <image src="../../../images/user_icon_vip2.png"></image>
+                    </view>
+                    <view class="new-header-level size-26 c-fff" wx:elif="{{userInfo.level == 3}}">
+                        <text class="new-header-text size-26 c-fff">{{userInfo.level_name}}</text>
+                        <image src="../../../images/user_icon_vip3.png"></image>
+                    </view>
+                </view>
+                <view class="new-header-cashbox flex-between p30" >
+                    <navigator class="flex-auto" url="/pages/user/account/account">
+                        <view class="new-header-cash-title mb-20 size-26 c-999">资产金额</view>
+                        <view class="new-header-cash-text c-theme-1" hidden="{{!showCash}}"> {{userInfo.user_money || '0.00'}} </view>
+                        <view class="new-header-cash-text c-000" hidden="{{showCash}}">********</view>
+                    </navigator>
+                    <view class="new-header-cash-show c-theme-2 size-22" bindtap="changeCashHandler">{{showCash ? '隐藏金额': '显示金额' }}</view>
+                </view>
+                <view class="new-header-have flex-between p30">
+                    <navigator url='/pages/user/coupon/coupon' class="new-header-have-item size-26 c-999 flex-auto">
+                        优惠券
+                        <text class="c-theme-1">{{userInfo.coupon_count || 0}}</text>
+                    </navigator>
+                    <navigator url='/pages/user/collect_list/collect_list' class="new-header-have-item size-26 c-999 flex-auto">
+                        我的收藏
+                        <text class="c-theme-1">{{userInfo.collect_count || 0}}</text>
+                    </navigator>
+                </view>
+            </view>
+            <view class="new-user-order mb-20 pt-30 pb-30 radius flex-center">
+                <navigator url='/pages/user/order_list/order_list?type=1' class="flex-auto new-user-order-item">
+                    <view class="new-user-order-image">
+                        <view class="new-user-order-num" wx:if='{{userInfo.waitPay && userInfo.waitPay != undefined && userInfo.waitPay != 0}}'>{{userInfo.waitPay}}</view>
+                        <image src="../../../images/user_order_status_1.png"></image>
+                    </view>
+                    <text>待付款</text>
+                </navigator>
+                <navigator url='/pages/user/order_list/order_list?type=2' class="flex-auto new-user-order-item">
+                    <view class="new-user-order-image">
+                        <view class="new-user-order-num" wx:if='{{userInfo.waitSend && userInfo.waitSend != undefined && userInfo.waitSend != 0}}'>{{userInfo.waitSend}}</view>
+                        <image src="../../../images/user_order_status_2.png"></image>
+                    </view>
+                    <text>待发货</text>
+                </navigator>
+                <navigator url='/pages/user/order_list/order_list?type=3' class="flex-auto new-user-order-item">
+                    <view class="new-user-order-image">
+                        <view class="new-user-order-num" wx:if='{{userInfo.waitReceive && userInfo.waitReceive != undefined && userInfo.waitReceive != 0}}'>{{userInfo.waitReceive}}</view>
+                        <image src="../../../images/user_order_status_3.png"></image>
+                    </view>
+                    <text>待收货</text>
+                </navigator>
+                <navigator url='/pages/user/comment/comment?status=0' class="flex-auto new-user-order-item">
+                    <view class="new-user-order-image">
+                        <view class="new-user-order-num" wx:if='{{userInfo.uncomment_count && userInfo.uncomment_count != undefined && userInfo.uncomment_count != 0}}'>{{userInfo.uncomment_count}}</view>
+                        <image src="../../../images/user_order_status_4.png"></image>
+                    </view>
+                    <text>待评价</text>
+                </navigator>
+                <navigator url='/pages/user/return_goods_list/return_goods_list' class="flex-auto new-user-order-item">
+                    <view class="new-user-order-image">
+                        <view class="new-user-order-num" wx:if='{{userInfo.return_count && userInfo.return_count != undefined && userInfo.return_count != 0}}'>{{userInfo.return_count}}</view>
+                        <image src="../../../images/user_order_status_5.png"></image>
+                    </view>
+                    <text>退货款</text>
+                </navigator>
+            </view>
+        </view>
+        <view class="common-list">
+            <block wx:for="{{userInfoList.manageList}}" wx:key="{{index}}">
+                <navigator class="common-item" url="{{item.url}}" wx:if="{{item.level <= userInfo.level && (!item.isLevel || userInfo.level == 1)}}">
+                    <view class="common-item-title">{{item.des}}</view>
+                    <view class="common-item-mess"></view>
+                    <image class="common-item-arrow" src="../../../images/icon-arrowdown.png"></image>
+                </navigator>
+            </block>
+        </view>
+    </view>
+</view>
+<!-- 授权弹框 -->
+<button open-type="getUserInfo" style="z-index: 1030" class="wx-auth-warrper" hidden="{{!isAuthorize}}" bindgetuserinfo="bindGetUserInfo"></button>
+<button class="wx-auth-warrper" open-type="getPhoneNumber" hidden="{{!isAuthPhoneShow}}" bindgetphonenumber="getAuthPhoneHandler"></button>

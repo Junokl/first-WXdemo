@@ -1,0 +1,32 @@
+<view class="container" wx:if="{{firstCategoris && firstCategoris.length > 0}}">
+    <view class="nav">
+        <view class="nav-item {{item.id==currentCategoryId?'nav-item-on':''}}" wx:for="{{firstCategoris}}" wx:key="{{index}}" bindtap="switchFirstCategory" data-id="{{item.id}}">{{item.mobile_name}}</view>
+    </view>
+    <view class="content">
+        <!-- <image class='cate-img default-banner' src='{{ad.ad_code}}'></image> -->
+        <view class="content-box" wx:for="{{categories}}" wx:key="{{index}}">
+            <block wx:if="{{item.sub_category.length>0}}">
+                <view class="content-name" bindtap='goodsList' data-id='{{item.id}}'>
+                    <view class="line"></view>
+                    <text>{{item.mobile_name}}</text>
+                    <view class="line"></view>
+                </view>
+                <view class="content-items">
+                    <navigator class="content-item" wx:for="{{item.sub_category}}" wx:key="{{index}}" url="/pages/goods/goodsList/goodsList?cat_id={{item.id}}">
+                        <image class="item-image default-pic" lazy-load="true" src="{{item.image}}"></image>
+                        <view class="item-name">{{item.mobile_name}}</view>
+                    </navigator>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>
+
+<view class="no-data mt-90" wx:if="{{!firstCategoris || firstCategoris.length == 0}}">
+    <image src="../../../images/no_cart.png" class="cart-image"/>
+    <view class="no-data-title">暂无分类</view>
+    <navigator url="/pages/index/index/index" class="lookat" open-type="switchTab"> 去逛逛 </navigator>
+</view>
+
+<!-- 授权弹框 -->
+<button open-type="getUserInfo" class="wx-auth-warrper" hidden="{{!isAuthorize}}"  bindgetuserinfo="bindGetUserInfo"></button>
